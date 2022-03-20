@@ -1,0 +1,89 @@
+.destinations {
+  width: 100%;
+  height: 92vh;
+  background-color: #edeff5;
+  padding: 30px;
+  padding-left: 50px;
+  overflow-y: scroll;
+}
+.destinations-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.destinations-action-bar {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+.btn-add_items {
+  border: none;
+  background-color: #edeff5;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-add_items:hover {
+  transform: scale(1.1);
+}
+.destinations-cont {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.create-destinations-container {
+  width: 100%;
+  /* background-color: red; */
+  margin-bottom: 20px;
+  border: 1px solid #fff;
+  padding: 10px;
+}
+.create-destinations-container div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.create-destinations-container div input {
+  margin-top: 0;
+}
+.file-input {
+  width: 350px;
+  margin-right: 100px;
+}
+.btn-create {
+  border: none;
+  background-color: #4fc3a1;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.destinations-card {
+  width: 300px;
+  height: 350px;
+  background-color: #fff;
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+}
+.img-holder {
+  width: 100%;
+  background-color: blue;
+  height: 70%;
+}
+.destinations-card h3 {
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+.btn-delete {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  background-color: #f03949;
+}

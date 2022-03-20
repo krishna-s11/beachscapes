@@ -1,0 +1,84 @@
+.itinerary-card {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
+  padding: 30px;
+  margin-top: 50px;
+}
+.details-title-holder {
+  border-bottom: 2px solid #ff5d2c;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.itinerary-card h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.itinerary-container {
+  width: 100%;
+  padding: 7px;
+  background-color: #f1f1f1;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.it-ct-l {
+  display: flex;
+  align-items: center;
+}
+.capsule {
+  width: 68px;
+  background-color: #17648f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 18px;
+  text-align: center;
+  padding: 10px;
+}
+.itinerary-container p {
+  margin-left: 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.itinerary-container img {
+  margin-right: 10px;
+}
+.itinerary-content {
+  width: 100%;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  margin-top: -20px;
+  padding-top: 50px;
+  padding-left: 90px;
+  padding-right: 54px;
+  padding-bottom: 40px;
+}
+.itinerary-content img {
+  margin-left: 20px;
+}
+.itinerary-content p {
+  font-size: 14px;
+  font-weight: 500;
+}
+.itinerary-content p:not(:first-child) {
+  margin-top: 30px;
+}
+.itinerary-img-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+.itinerary-img-container img {
+  width: 200px;
+  border-radius: 10px;
+  margin: 0;
+}
+.itinerary-img-container img:not(:first-child) {
+  margin-left: 10px;
+}

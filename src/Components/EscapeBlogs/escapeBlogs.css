@@ -1,0 +1,66 @@
+.escape-blogs {
+  width: 100%;
+  padding: 50px 120px;
+  background-color: #fff;
+  margin-top: 120px;
+}
+.escape-title-holder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.escape-title-holder h1 {
+  font-family: "brightsight";
+  font-weight: 400;
+  font-size: 48px;
+  color: #395464;
+}
+.escape-title-holder span:first-child {
+  margin-right: 10px;
+}
+.escape-title-holder span:last-child {
+  margin-left: 10px;
+}
+.escape-blogs-card-content {
+  width: 100%;
+  display: flex;
+}
+.escape-lt {
+  width: 100%;
+}
+.escape-blog-lt {
+  background-color: #dfdfdf;
+  width: 100%;
+  border: 2px solid #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+}
+.escape-blog-lt h1 {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 22px;
+}
+.escape-blog-lt img {
+  width: 100%;
+}
+.escape-blog-lt p {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #626262;
+  margin-top: 10px;
+}
+.escape-blog-lt a {
+  font-size: 16px;
+  color: #ff5d2c;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+.escape-blog-lt a span img {
+  width: 20%;
+  transform: translateY(3px);
+  margin-left: 10px;
+}
+.escape-rt {
+  width: 100%;
+  margin-left: 30px;
+}

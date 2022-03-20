@@ -1,0 +1,20 @@
+.testimonies {
+  width: 480px;
+  background-color: #fff;
+  margin-top: 50px;
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
+  padding: 20px 30px;
+}
+.details-title-holder {
+  border-bottom: 2px solid #ff5d2c;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.testimonies h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.testimonies iframe {
+  margin-top: 20px;
+}

@@ -1,0 +1,85 @@
+.contact-pg {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contact-card {
+  width: 800px;
+  height: 500px;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+.contact-img-holder {
+  width: 300px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+.contact-img-content {
+  position: absolute;
+  z-index: 2;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+}
+.contact-tour-name {
+  font-weight: 600;
+}
+.contact-rt {
+  width: 70%;
+  padding: 20px;
+}
+.contact-frm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.contact-frm input {
+  width: 170px;
+  border-radius: 50px;
+  padding: 7px 10px;
+  margin: 5px;
+  border: none;
+  border: 1px solid #c0c0c0;
+}
+.emnum {
+  width: 350px !important;
+}
+.contact-frm textarea {
+  width: 340px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 5px;
+}
+.contact-frm button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ff5d2c;
+  color: #fff;
+  margin-top: 20px;
+  cursor: pointer;
+}
+#btn-contactClose {
+  position: absolute;
+  right: 30px;
+  top: 28px;
+  font-size: 20px;
+  cursor: pointer;
+}

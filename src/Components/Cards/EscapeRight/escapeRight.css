@@ -1,0 +1,45 @@
+.escape-right {
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  background: #dfdfdf;
+  border: 2px solid #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  position: relative;
+}
+.escape-right div {
+  margin-left: 10px;
+}
+.escape-right div h1 {
+  font-weight: 600;
+  font-size: 22px;
+  color: #000000;
+}
+.escape-right div p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  color: #626262;
+  margin-top: 10px;
+}
+.link-holder a {
+  font-size: 16px;
+  color: #ff5d2c;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  margin-right: 20px;
+}
+.link-holder a span img {
+  width: 20%;
+  transform: translateY(3px);
+  margin-left: 10px;
+}
+.link-holder {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+}

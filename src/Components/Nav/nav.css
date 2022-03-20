@@ -38,4 +38,63 @@
 }
 #hamburger {
   margin-left: 30px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+.menu {
+  height: 0;
+  padding: 0;
+  width: 0;
+  background: linear-gradient(
+    218.39deg,
+    #ffffff 0%,
+    rgba(230, 230, 230, 0.4) 100.17%
+  );
+  border-radius: 10px;
+  position: absolute;
+  right: 40px;
+  z-index: 1;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.menu-open {
+  width: 270px;
+  height: auto;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  overflow: auto;
+}
+.menu ul {
+  list-style: none;
+  margin-top: 20px;
+}
+.menu ul li {
+  color: #515151;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  padding: 10px 20px;
+}
+.menu ul li:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.menu ul li span {
+  margin-right: 10px;
+}
+#about {
+  margin-right: 11px;
+  transform: translateX(5px);
+}
+#contact {
+  margin-right: 7px;
+  transform: translate(4px, 4px);
+}
+#blog {
+  transform: translateY(5px);
 }

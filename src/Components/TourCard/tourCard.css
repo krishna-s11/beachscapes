@@ -1,0 +1,141 @@
+.tour-card {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20px;
+  display: flex;
+  padding: 20px;
+  margin-top: 40px;
+  font-family: "Poppins", sans-serif;
+}
+.tour-card img {
+  width: 400px;
+  /* height: 350px; */
+  border-radius: 12px;
+}
+.mid-section {
+  padding: 0 10px;
+}
+.mid-section h1 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #000;
+}
+.mid-section ul {
+  margin-left: 20px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+.right-section {
+  width: 30%;
+}
+.tour-info-strip {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-around;
+  /* background-color: red; */
+}
+.tour-price {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 30px;
+  color: #ff5d2c;
+  margin-right: 20px;
+}
+.tour-price span:first-child {
+  color: #000;
+}
+.tour-price span:last-child {
+  font-size: 18px;
+  margin-left: 10px;
+  text-decoration: line-through;
+  color: #000;
+}
+.tour-info-strip img {
+  width: 30px;
+}
+.temp-info {
+  display: flex;
+}
+.dayTemp {
+  font-family: "Poppins";
+  font-size: 30px;
+  font-weight: 600;
+  color: #ff5d2c;
+}
+.nightTemp {
+  font-family: "Poppins";
+  font-size: 30px;
+  font-weight: 600;
+  color: #17648f;
+  margin-left: 5px;
+}
+.tour-loc {
+  font-size: 30px;
+  margin-top: 6px;
+  /* color: # !important; */
+}
+.amenities {
+  margin-left: 20px !important;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.amenities img {
+  width: 40px;
+}
+.right-section {
+  padding: 10px;
+  text-align: right;
+  position: relative;
+}
+.right-section img {
+  width: 150px;
+}
+.tags-container {
+  width: 100%;
+  height: 200px;
+  margin-top: 30px;
+}
+.tag-flex {
+  display: flex;
+}
+
+.tag-flex-1 {
+  width: 100%;
+  text-align: center;
+  background-color: #bbdee9;
+  border-radius: 15px;
+  padding: 3px;
+}
+.tag-flex-2 {
+  width: 100%;
+  text-align: center;
+  background-color: #bbdee9;
+  border-radius: 15px;
+  padding: 3px;
+}
+.tags {
+  background-color: #bbdee9;
+  border-radius: 15px;
+  text-align: center;
+  padding: 3px;
+  margin-top: 5px;
+}
+.btn-viewMore {
+  border: none;
+  width: 95%;
+  background-color: #ff5d2c;
+  color: #fff;
+  padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-viewMore:hover {
+  background-color: #dc471a;
+}

@@ -1,0 +1,35 @@
+.blogs-pg {
+  margin-top: 96px;
+  background-color: #f5f5f5;
+  padding-bottom: 50px;
+}
+.hero {
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(
+      180deg,
+      #f5f5f5 0%,
+      rgba(245, 245, 245, 0) 7.81%,
+      rgba(245, 245, 245, 0) 68.23%,
+      #f5f5f5 100%
+    ),
+    url(../../assets/tours.png);
+  background-repeat: no-repeat;
+}
+.blogs-content {
+  padding: 0 120px;
+}
+.blogs-title {
+  font-family: "brightsight";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 48px;
+  color: #395464;
+}
+.blogs-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

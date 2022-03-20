@@ -1,0 +1,51 @@
+.tour-title-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+}
+.tour-title-card h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
+.tour-title-info {
+  display: flex;
+  margin-top: 15px;
+}
+.tour-location {
+  display: flex;
+  align-items: center;
+}
+.tour-location img {
+  width: 50px;
+}
+.tour-location p {
+  color: #747474;
+  font-weight: 400;
+  font-size: 18px;
+  margin-top: 5px;
+}
+.tour-temp-info {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+.tour-temp-info img {
+  transform: translateY(4px);
+  width: 30px;
+  margin-right: 3px;
+}
+.tour-card-bottom-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.amenities {
+  margin-left: 8px;
+}
+.amenities img:not(:first-child) {
+  width: 40px;
+  margin-left: 15px;
+}
