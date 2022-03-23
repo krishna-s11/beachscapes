@@ -1,0 +1,30 @@
+.admin-blogs {
+  width: 100%;
+  height: 92vh;
+  background-color: #edeff5;
+  padding: 30px;
+  padding-left: 50px;
+  overflow-y: scroll;
+}
+.admin-blogs-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.admin-blogs-action-bar {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+.btn-add_items {
+  border: none;
+  background-color: #edeff5;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-add_items:hover {
+  transform: scale(1.1);
+}

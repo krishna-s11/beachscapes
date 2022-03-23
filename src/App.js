@@ -12,6 +12,8 @@ import Dashboard from "./Pages/AdminPanel/Dashboard/Dashboard";
 import { BrowserRouter as Router } from "react-router-dom";
 import Destinations from "./Components/AdminPanel/Destinations/Destinations";
 import Lead from "./Components/AdminPanel/Leads/Lead";
+import AdminBlogs from "./Components/AdminPanel/Blogs/Blogs";
+
 // import Product from "./Pages/Product/Product";
 
 function App() {
@@ -110,8 +112,17 @@ function App() {
               </>
             }
           />
+          <Route
+            path="blogs"
+            element={
+              <>
+                <AdminBlogs />
+              </>
+            }
+          />
         </Route>
       </Routes>
+      {/* <Footer /> */}
     </div>
   );
 }

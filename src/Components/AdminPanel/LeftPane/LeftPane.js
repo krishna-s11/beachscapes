@@ -4,6 +4,7 @@ import home from "../../../assets/home.png";
 import destination from "../../../assets/destination.png";
 import tours from "../../../assets/tour-bus.png";
 import leads from "../../../assets/prospect.png";
+import blogs from "../../../assets/blogIcon.png";
 import { useNavigate } from "react-router-dom";
 
 const LeftPane = () => {
@@ -62,6 +63,18 @@ const LeftPane = () => {
             <img alt="" src={leads}></img>
           </span>
           Leads
+        </li>
+        <li
+          onClick={() => {
+            setFilter(4);
+            navigate("/admin/dashboard/blogs");
+          }}
+          style={{ backgroundColor: filter === 4 ? "#2e538a" : null }}
+        >
+          <span>
+            <img alt="" src={blogs}></img>
+          </span>
+          Blogs
         </li>
       </ul>
     </div>
