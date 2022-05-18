@@ -76,10 +76,7 @@ const Contact = ({ close, name }) => {
           <img className="contact-img" src={image1} alt=""></img>
           <div className="contact-img-content">
             <p>You picked</p>
-            <p className="contact-tour-name">
-              Exclusive Maldives Honeymoon Holiday Packages for an Enthralling
-              Trip
-            </p>
+            <p className="contact-tour-name">{name}</p>
             <p>
               <span>
                 <img src={location} alt="" />

@@ -24,9 +24,9 @@ const Enquire = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    // await addDoc(collection(db, "enquiry"), { ...data });
-    // setLoading(false);
-    // window.location.reload();
+    await addDoc(collection(db, "enquiry"), { ...data });
+    setLoading(false);
+    window.location.reload();
   };
 
   return (
