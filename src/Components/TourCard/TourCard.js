@@ -30,7 +30,7 @@ const TourCard = ({ image, data }) => {
         </ul>
         <div className="tour-info-strip">
           <p className="tour-price">
-            <span>₹ </span> {tour.price.actualPrice}
+            <span>₹ </span> {tour.price.discountPrice}
             <span>₹{tour.price.actualPrice}</span>
           </p>
           <div className="temp-info">
@@ -54,14 +54,14 @@ const TourCard = ({ image, data }) => {
             {capitalizeFirstLetter(tour.destination)}
           </h1>
         </div>
-        <div className="amenities">
+        {/* <div className="amenities">
           <img src={dining} alt="dining" />
           <img src={liqour} alt="liquor" />
           <img src={dining} alt="dining" />
           <img src={liqour} alt="liquor" />
           <img src={dining} alt="dining" />
           <img src={liqour} alt="liquor" />
-        </div>
+        </div> */}
       </div>
       <div className="right-section">
         <img src={ratings} alt="ratings" />

@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import NewBlogs from "../NewBlogs/NewBlogs";
 import "./blogs.css";
+import { db } from "../../../firebase";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 const Blogs = () => {
   const [add, setAdd] = useState(false);
+  const [blogs, setBlogs] = useState();
+
+  useEffect(() => {
+    const getTours = async () => {
+      const querySnapshot = await getDocs(collection(db, "blogs"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+      setBlogs(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+      );
+    };
+    getTours();
+  }, []);
   return (
     <div className="admin-blogs">
+      {add ? (
+        <NewBlogs
+          close={() => {
+            setAdd(false);
+          }}
+        />
+      ) : null}
       <div className="admin-blogs-top">
-        <h1>Manage Tours</h1>
+        <h1>Manage Blogs</h1>
         <div className="admin-blogs-action-bar">
           {
             <button
@@ -31,29 +55,27 @@ const Blogs = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {tours.map((tour, i) => {
-              return (
-                <tr>
-                  <td>{i + 1}</td>
-                  <td>
-                    <img alt="" className="product-preview"></img>
-                  </td>
-                  <td>{tour.data.title}</td>
-                  <td>{tour.data.destination}</td>
-                  <td>{tour.data.price.discountPrice}</td>
-                  <td>{tour.data.price.actualPrice}</td>
-                  <td
-                    className="btn-del"
-                    onClick={() => {
+          {blogs?.map((blog, i) => {
+            return (
+              <tr>
+                <td>{i + 1}</td>
+                <td>
+                  <img alt="" className="product-preview"></img>
+                </td>
+                <td>{blog.data.heading}</td>
+                <td>{blog.data.title}</td>
+                <td
+                  className="btn-del"
+                  onClick={() => {
                     //   handleDelete(tour.id);
-                    }}
-                  >
-                    Delete
-                  </td>
-                  <td className="btn-edit">Edit</td>
-                </tr>
-              );
-            })} */}
+                  }}
+                >
+                  Delete
+                </td>
+                <td className="btn-edit">Edit</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

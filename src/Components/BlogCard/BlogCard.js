@@ -2,26 +2,21 @@ import React from "react";
 import "./blogCard.css";
 import { useNavigate } from "react-router-dom";
 
-const BlogCard = () => {
+const BlogCard = ({ data }) => {
   const navigate = useNavigate();
+  console.log(data);
   return (
     <div
       className="blog-card"
       onClick={() => {
-        navigate("/blog");
+        navigate(`/blog/${data.id}`);
       }}
     >
       <img src="https://picsum.photos/380/190"></img>
       <div className="hr"></div>
       <div className="blog-card-content">
-        <h1>Best food you can get at Maldives on our Tour pack</h1>
-        <p>
-          This was my second stay at the Grand Dragon Ladakh. The first time I
-          stayed there, it was of January 2016. Both the times I have stayed as
-          a blogger, my stay was complimentary. The January 2016 was a group
-          trip whereas in October 2021 I was staying alone and doing my own
-          things!
-        </p>
+        <h1>{data.data.heading}</h1>
+        <p>{data.data.para1}</p>
       </div>
     </div>
   );

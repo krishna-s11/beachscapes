@@ -41,7 +41,7 @@ const Tours = () => {
     }
   }, [destination]);
 
-  console.log(tours);
+  console.log(tours, destination);
 
   return (
     <div className="tours-pg">

@@ -3,8 +3,18 @@ import "./newTour.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db, storage } from "../../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  setDoc,
+  addDoc,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
+import Loader from "../../Loader/Loader";
 
 const NewTour = ({ close }) => {
   const [display2, setDisplay2] = useState(0);
@@ -52,7 +62,29 @@ const NewTour = ({ close }) => {
     actualPrice: "",
     offPercentage: "",
     testimonies: "",
+    service1: "",
+    charge1: "",
+    service2: "",
+    charge2: "",
+    service3: "",
+    charge3: "",
+    service4: "",
+    charge4: "",
+    service5: "",
+    charge5: "",
+    service6: "",
+    charge6: "",
+    service7: "",
+    charge7: "",
+    service8: "",
+    charge8: "",
+    service9: "",
+    charge9: "",
+    service10: "",
+    charge10: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const defaultBtn = () => {
     const defaultBtn = document.querySelector("#choose-input");
@@ -61,11 +93,10 @@ const NewTour = ({ close }) => {
   const [images, setImages] = useState([]);
 
   const handleUpload = (e) => {
-    for (var i = 0; i < e.target.files.length; i++) {
+    for (var i = 0; i < Object.keys(e.target.files).length; i++) {
       const newImage = e.target.files[i];
       setImages((prevState) => [...prevState, newImage]);
     }
-    console.log(images);
   };
   const handleChange = (e) => {
     setDetails({
@@ -74,6 +105,7 @@ const NewTour = ({ close }) => {
     });
   };
   const handleSubmit = async () => {
+    setLoading(true);
     const formData = {
       title: details.title,
       destination: details.destination.toLowerCase(),
@@ -128,11 +160,70 @@ const NewTour = ({ close }) => {
           details: details.itineraryDetails5,
         },
       ],
+      services: [
+        {
+          service: details.service1,
+          charge: details.charge1,
+        },
+        {
+          service: details.service2,
+          charge: details.charge2,
+        },
+        {
+          service: details.service3,
+          charge: details.charge3,
+        },
+        {
+          service: details.service4,
+          charge: details.charge4,
+        },
+        {
+          service: details.service5,
+          charge: details.charge5,
+        },
+        {
+          service: details.service6,
+          charge: details.charge6,
+        },
+        {
+          service: details.service7,
+          charge: details.charge7,
+        },
+        {
+          service: details.service8,
+          charge: details.charge8,
+        },
+        {
+          service: details.service9,
+          charge: details.charge9,
+        },
+        {
+          service: details.service10,
+          charge: details.charge10,
+        },
+      ],
     };
-    await addDoc(collection(db, "tours"), formData);
+    let imgLink = [];
+    const randomId = uuidv4();
+    imgLink = await Promise.all(
+      images.map(async (image, key) => {
+        const storageRef = ref(storage, `tours/${randomId}/${key}`);
+        await uploadBytes(storageRef, image).then((snapshot) => {
+          console.log("uploaded");
+        });
+        const downloadUrl = await getDownloadURL(
+          ref(storage, `tours/${randomId}/${key}`)
+        );
+        return downloadUrl;
+      })
+    );
+    await setDoc(doc(db, "tours", randomId), { ...formData, imgLink });
+    setLoading(false);
     close();
     window.location.reload();
   };
+
+  console.log(details);
 
   return (
     <div className="new-tour">
@@ -732,6 +823,290 @@ const NewTour = ({ close }) => {
                 ></input>
               </div>
             </div>
+            <div className="services">
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service1"
+                    name="service1"
+                    onChange={handleChange}
+                    placeholder="service 1"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge1"
+                    name="charge1"
+                    onChange={handleChange}
+                    placeholder="charge 1"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service2"
+                    name="service2"
+                    onChange={handleChange}
+                    placeholder="service 2"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge2"
+                    name="charge2"
+                    onChange={handleChange}
+                    placeholder="charge 2"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service3"
+                    name="service3"
+                    onChange={handleChange}
+                    placeholder="service 3"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge3"
+                    name="charge3"
+                    onChange={handleChange}
+                    placeholder="charge 3"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service4"
+                    name="service4"
+                    onChange={handleChange}
+                    placeholder="service 4"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge4"
+                    name="charge4"
+                    onChange={handleChange}
+                    placeholder="charge 4"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service5"
+                    name="service5"
+                    onChange={handleChange}
+                    placeholder="service 5"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge5"
+                    name="charge5"
+                    onChange={handleChange}
+                    placeholder="charge 5"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service6"
+                    name="service6"
+                    onChange={handleChange}
+                    placeholder="service 6"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge6"
+                    name="charge6"
+                    onChange={handleChange}
+                    placeholder="charge 6"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service7"
+                    name="service7"
+                    onChange={handleChange}
+                    placeholder="service 7"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge7"
+                    name="charge7"
+                    onChange={handleChange}
+                    placeholder="charge 7"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service8"
+                    name="service8"
+                    onChange={handleChange}
+                    placeholder="service 8"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge8"
+                    name="charge8"
+                    onChange={handleChange}
+                    placeholder="charge 8"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service9"
+                    name="service9"
+                    onChange={handleChange}
+                    placeholder="service 9"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge9"
+                    name="charge9"
+                    onChange={handleChange}
+                    placeholder="charge 9"
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="add-group service-input sub-category">
+                <div>
+                  <p style={{ fontWeight: "600" }}>Service :</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="service10"
+                    name="service10"
+                    onChange={handleChange}
+                    placeholder="service 10"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <p style={{ fontWeight: "600" }}>Charge:</p>
+                  <input
+                    type="text"
+                    style={{ transform: "translateX(-18px)" }}
+                    class="form__input add-input"
+                    id="charge10"
+                    name="charge10"
+                    onChange={handleChange}
+                    placeholder="charge 10"
+                    required
+                  ></input>
+                </div>
+              </div>
+            </div>
+            {/* <div className="add-group">
+                <p style={{ fontWeight: "600" }}>Fare Break: </p>
+                <input
+                  type="text"
+                  class="form__input add-input"
+                  id="fareBreak"
+                  name="fareBreak"
+                  onChange={handleChange}
+                  placeholder=""
+                  required
+                ></input>
+              </div> */}
             <div
               style={{
                 width: "350px",
@@ -740,7 +1115,7 @@ const NewTour = ({ close }) => {
               }}
             >
               <button className="btn btn-add-tour" onClick={handleSubmit}>
-                Add Tour
+                {loading ? <Loader small /> : "Add Tour"}
               </button>
             </div>
           </div>

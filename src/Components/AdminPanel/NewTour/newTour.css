@@ -151,6 +151,15 @@
   align-items: center;
   border: 1px solid #e7e7e7;
 }
+.services {
+  border: 1px solid #e7e7e7;
+  padding: 5px;
+  width: 350px;
+  margin-top: 20px;
+}
+.service-input input {
+  width: 160px !important;
+}
 .btn {
   border: none;
   cursor: pointer;

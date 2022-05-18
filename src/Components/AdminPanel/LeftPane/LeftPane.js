@@ -20,6 +20,7 @@ const LeftPane = () => {
         <li
           onClick={() => {
             setFilter(0);
+            navigate("/admin/dashboard/homepage");
           }}
           style={{ backgroundColor: filter === 0 ? "#2e538a" : null }}
         >

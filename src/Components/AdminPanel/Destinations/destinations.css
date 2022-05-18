@@ -70,7 +70,6 @@
 }
 .img-holder {
   width: 100%;
-  background-color: blue;
   height: 70%;
 }
 .destinations-card h3 {
@@ -86,4 +85,5 @@
   padding: 10px;
   color: #fff;
   background-color: #f03949;
+  cursor: pointer;
 }

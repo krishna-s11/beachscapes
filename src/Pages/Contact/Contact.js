@@ -5,6 +5,8 @@ import image1 from "../../assets/contact.png";
 import location from "../../assets/location-white.svg";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import emailjs from "emailjs-com";
+import Loader from "../../Components/Loader/Loader";
 
 const Contact = ({ close, name }) => {
   const [details, setDetails] = useState({
@@ -16,6 +18,7 @@ const Contact = ({ close, name }) => {
     couponCode: "",
     request: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setDetails({
@@ -24,10 +27,40 @@ const Contact = ({ close, name }) => {
     });
   };
 
+  function sendEmail(e, templateParams) {
+    e.preventDefault();
+    emailjs
+      .send(
+        "service_vttqhtd",
+        "template_b3ccuup",
+        templateParams,
+        "kpcdBkL5dZ-K8sb-4"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  }
+
   const handleSubmit = async (e) => {
+    setLoading(true);
+    var templateParams = {
+      first_name: details.firstName,
+      last_name: details.lastName,
+      email_id: details.email,
+      phone_number: details.phone,
+      number_of_people: details.nop,
+      coupon_code: details.couponCode,
+      any_request: details.request,
+    };
     await addDoc(collection(db, "leads"), { ...details, name });
+    sendEmail(e, templateParams);
+    setLoading(false);
     close();
-    window.location.reload();
   };
 
   return (
@@ -82,9 +115,10 @@ const Contact = ({ close, name }) => {
               placeholder="Email ID"
             ></input>
             <input
-              type="number"
+              type="tel"
               className="emnum"
               name="phone"
+              maxLength={10}
               onChange={handleChange}
               placeholder="Phone No"
             ></input>
@@ -108,7 +142,9 @@ const Contact = ({ close, name }) => {
               onChange={handleChange}
               placeholder="Any request"
             ></textarea>
-            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handleSubmit}>
+              {loading ? <Loader small /> : "Submit"}
+            </button>
           </div>
         </div>
       </div>

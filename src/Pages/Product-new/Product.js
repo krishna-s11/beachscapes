@@ -3,6 +3,7 @@ import "./product.css";
 import image1 from "../../assets/product1.png";
 import image2 from "../../assets/product2.png";
 import image3 from "../../assets/product3.png";
+import image4 from "../../assets/mumbai.jpeg";
 import TourTitle from "../../Components/Cards/TourTitle/TourTitle";
 import Itinerary from "../../Components/Itinerary/Itinerary";
 import Testimonies from "../../Components/Testimonies/Testimonies";
@@ -11,11 +12,15 @@ import { useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Contact from "../Contact/Contact";
+import Slider from "react-slick";
+import AdditionalVideos from "../../Components/AdditionalVideos/AdditionalVideos";
+import PriceDetails from "../../Components/Cards/PriceDetails/PriceDetails";
 
 const Product = () => {
   const { id } = useParams();
   const [tour, setTour] = useState();
   const [contact, setContact] = useState(false);
+  const [priceDetails, setPriceDetails] = useState(false);
 
   useEffect(() => {
     const getTour = async () => {
@@ -29,6 +34,17 @@ const Product = () => {
 
   console.log(tour);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+  };
+
   if (tour) {
     return (
       <div className="product-new">
@@ -40,10 +56,22 @@ const Product = () => {
             }}
           />
         ) : null}
+        {priceDetails ? (
+          <PriceDetails
+            services={tour.services}
+            close={() => {
+              setPriceDetails(false);
+            }}
+          />
+        ) : null}
         <div className="product-pg-container">
           <div className="pd-nw-lt">
             <div className="cover-container-lt">
-              <img src={image1} alt="cover1" />
+              <Slider {...settings}>
+                {tour.imgLink.map((img, key) => {
+                  return <img src={img} alt={`${tour.title}${key}`} />;
+                })}
+              </Slider>
             </div>
             <div className="pd-lt-content">
               <TourTitle data={tour} />
@@ -57,6 +85,58 @@ const Product = () => {
                   })}
                 </ul>
               </div>
+              <div className="tour-details">
+                <div className="details-title-holder">
+                  <h1>Hotel Videos & Images</h1>
+                </div>
+                <div className="additional-videos-holder">
+                  <div className="video-container">
+                    <iframe
+                      width="310px"
+                      height="181px"
+                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div className="video-container">
+                    <iframe
+                      width="310px"
+                      height="181px"
+                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div className="video-container">
+                    <iframe
+                      width="310px"
+                      height="181px"
+                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div className="video-container">
+                    <iframe
+                      width="310px"
+                      height="181px"
+                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+              {/* <AdditionalVideos /> */}
               <div className="tour-details">
                 <div className="details-title-holder">
                   <h1>{tour.overview.title}</h1>
@@ -82,25 +162,35 @@ const Product = () => {
           <div className="pd-nw-rt">
             <div className="cover-container-rt">
               <div className="rt-img1">
-                <img src={image2} alt="cover1" />
+                <img src={tour.imgLink[1]} alt="cover1" />
               </div>
               <div className="rt-img2">
-                <img src={image3} alt="cover1" />
+                <img src={tour.imgLink[2]} alt="cover1" />
               </div>
             </div>
             <div className="rt-content">
               <div className="card-price">
-                <h1>
-                  ₹{" "}
-                  <span style={{ color: "#FF5D2C" }}>
-                    {tour.price.discountPrice}
-                  </span>
-                  <strike>
-                    <span style={{ marginLeft: "10px", fontSize: "18px" }}>
-                      ₹ <span>{tour.price.actualPrice}</span>
+                <div>
+                  <h1>
+                    ₹{" "}
+                    <span style={{ color: "#FF5D2C" }}>
+                      {tour.price.discountPrice}
                     </span>
-                  </strike>
-                </h1>
+                    <strike>
+                      <span style={{ marginLeft: "10px", fontSize: "18px" }}>
+                        ₹ <span>{tour.price.actualPrice}</span>
+                      </span>
+                    </strike>
+                  </h1>
+                  <p
+                    id="fare-break"
+                    onClick={() => {
+                      setPriceDetails(true);
+                    }}
+                  >
+                    View Details
+                  </p>
+                </div>
                 <div
                   className="book-now"
                   onClick={() => {

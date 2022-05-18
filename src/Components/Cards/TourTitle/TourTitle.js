@@ -20,7 +20,7 @@ const TourTitle = ({ data }) => {
           <img src={location} alt="location" />
           <p>{capitalizeFirstLetter(data.destination)}</p>
         </div>
-        <div className="tour-temp-info">
+        {/* <div className="tour-temp-info">
           <h1>
             <img src={day} alt="day temperature"></img>
             <span
@@ -46,9 +46,9 @@ const TourTitle = ({ data }) => {
               {data.nightTemp}
             </span>
           </h1>
-        </div>
+        </div> */}
       </div>
-      <div className="tour-card-bottom-strip">
+      {/* <div className="tour-card-bottom-strip">
         <div className="amenities">
           <img src={dining} alt="dining" />
           <img src={liqour} alt="liqour" />
@@ -58,7 +58,7 @@ const TourTitle = ({ data }) => {
           <img src={liqour} alt="liqour" />
         </div>
         <img src={ratings} alt="ratings"></img>
-      </div>
+      </div> */}
     </div>
   );
 };

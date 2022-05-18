@@ -13,6 +13,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Destinations from "./Components/AdminPanel/Destinations/Destinations";
 import Lead from "./Components/AdminPanel/Leads/Lead";
 import AdminBlogs from "./Components/AdminPanel/Blogs/Blogs";
+import Homepage from "./Components/AdminPanel/Homepage/Homepage";
 
 // import Product from "./Pages/Product/Product";
 
@@ -73,7 +74,7 @@ function App() {
           }
         />
         <Route
-          path="/blog"
+          path="/blog/:id"
           element={
             <>
               <Blog />
@@ -117,6 +118,14 @@ function App() {
             element={
               <>
                 <AdminBlogs />
+              </>
+            }
+          />
+          <Route
+            path="homepage"
+            element={
+              <>
+                <Homepage />
               </>
             }
           />

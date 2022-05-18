@@ -12,7 +12,8 @@ import vergin from "../../assets/vergin.png";
 import bora from "../../assets/bora.png";
 import CarouselCard2 from "../Cards/CarouselCard2/CarouselCard2";
 import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import TourCardT2 from "../TourCardT2/TourCardT2";
 
 const Carousel = () => {
   const [destinations, setDestinations] = useState([]);
@@ -103,6 +104,10 @@ const Carousel = () => {
       );
     };
     getDestinations();
+    const getBanner1 = async () => {
+      const docRef = doc(db, "homepage", "banner1");
+      const docSnap = await getDoc(docRef);
+    };
   }, []);
 
   return (
@@ -148,6 +153,13 @@ const Carousel = () => {
           </span>
         </h1>
         <Slider {...settings}>
+          {/* <TourCardT2 />
+          <TourCardT2 />
+          <TourCardT2 />
+          <TourCardT2 />
+          <TourCardT2 />
+          <TourCardT2 />
+          <TourCardT2 /> */}
           <CarouselCard img={bali} text="bali" />
           <CarouselCard img={goa} text="goa" />
           <CarouselCard img={maldives} text="maldives" />
