@@ -12,7 +12,14 @@ const BlogCard = ({ data }) => {
         navigate(`/blog/${data.id}`);
       }}
     >
-      <img src="https://picsum.photos/380/190"></img>
+      <img
+        src={
+          data.data.imgLink
+            ? data.data.imgLink[1]
+            : "https://picsum.photos/380/190"
+        }
+        alt={data.data.para1}
+      ></img>
       <div className="hr"></div>
       <div className="blog-card-content">
         <h1>{data.data.heading}</h1>

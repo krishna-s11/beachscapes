@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./newTour.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
@@ -7,16 +7,17 @@ import { db, storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   collection,
-  getDocs,
+  getDoc,
   doc,
   deleteDoc,
   setDoc,
   addDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import Loader from "../../Loader/Loader";
 
-const NewTour = ({ close }) => {
+const NewTour = ({ close, id }) => {
   const [display2, setDisplay2] = useState(0);
   const [display3, setDisplay3] = useState(0);
   const [display4, setDisplay4] = useState(0);
@@ -85,6 +86,7 @@ const NewTour = ({ close }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [tour, setTour] = useState();
 
   const defaultBtn = () => {
     const defaultBtn = document.querySelector("#choose-input");
@@ -203,27 +205,123 @@ const NewTour = ({ close }) => {
         },
       ],
     };
-    let imgLink = [];
-    const randomId = uuidv4();
-    imgLink = await Promise.all(
-      images.map(async (image, key) => {
-        const storageRef = ref(storage, `tours/${randomId}/${key}`);
-        await uploadBytes(storageRef, image).then((snapshot) => {
-          console.log("uploaded");
-        });
-        const downloadUrl = await getDownloadURL(
-          ref(storage, `tours/${randomId}/${key}`)
-        );
-        return downloadUrl;
-      })
-    );
-    await setDoc(doc(db, "tours", randomId), { ...formData, imgLink });
+    if (id) {
+      let imgLink = [];
+      imgLink = await Promise.all(
+        images?.map(async (image, key) => {
+          const storageRef = ref(storage, `tours/${id}/${key}`);
+          await uploadBytes(storageRef, image).then((snapshot) => {
+            console.log("uploaded");
+          });
+          const downloadUrl = await getDownloadURL(
+            ref(storage, `tours/${id}/${key}`)
+          );
+          return downloadUrl;
+        })
+      );
+      const docRef = doc(db, "tours", id);
+      await updateDoc(docRef, { ...formData, imgLink });
+    } else {
+      let imgLink = [];
+      const randomId = uuidv4();
+      imgLink = await Promise.all(
+        images.map(async (image, key) => {
+          const storageRef = ref(storage, `tours/${randomId}/${key}`);
+          await uploadBytes(storageRef, image).then((snapshot) => {
+            console.log("uploaded");
+          });
+          const downloadUrl = await getDownloadURL(
+            ref(storage, `tours/${randomId}/${key}`)
+          );
+          return downloadUrl;
+        })
+      );
+      await setDoc(doc(db, "tours", randomId), { ...formData, imgLink });
+    }
     setLoading(false);
     close();
     window.location.reload();
   };
 
   console.log(details);
+
+  useEffect(() => {
+    if (id) {
+      const getTour = async () => {
+        const docRef = doc(db, "tours", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setTour(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      };
+      getTour();
+      setDetails({
+        ...details,
+        title: tour?.title,
+        destination: tour?.destination,
+        dayTemp: tour?.dayTemp,
+        nightTemp: tour?.nightTemp,
+        highlightTitle: tour?.hightlights.title,
+        pt1: tour?.hightlights.data[0],
+        pt2: tour?.hightlights.data[1],
+        pt3: tour?.hightlights.data[2],
+        pt4: tour?.hightlights.data[3],
+        pt5: tour?.hightlights.data[4],
+        overviewTitle: tour?.overview.title,
+        overviewLocation: tour?.overview.location,
+        checkIn: tour?.overview.checkIn,
+        checkOut: tour?.overview.checkOut,
+        overviewDesc: tour?.overview.desc,
+        itineraryTitle1: tour?.itinerary[0].title,
+        itinerarySub1: tour?.itinerary[0].subtitle,
+        itineraryLocation1: tour?.itinerary[0].location,
+        itineraryDetails1: tour?.itinerary[0].details,
+        itineraryTitle2: tour?.itinerary[1].title,
+        itinerarySub2: tour?.itinerary[1].subtitle,
+        itineraryLocation2: tour?.itinerary[1].location,
+        itineraryDetails2: tour?.itinerary[1].details,
+        itineraryTitle3: tour?.itinerary[2].title,
+        itinerarySub3: tour?.itinerary[2].subtitle,
+        itineraryLocation3: tour?.itinerary[2].location,
+        itineraryDetails3: tour?.itinerary[2].details,
+        itineraryTitle4: tour?.itinerary[3].title,
+        itinerarySub4: tour?.itinerary[3].subtitle,
+        itineraryLocation4: tour?.itinerary[3].location,
+        itineraryDetails4: tour?.itinerary[3].details,
+        itineraryTitle5: tour?.itinerary[4].title,
+        itinerarySub5: tour?.itinerary[4].subtitle,
+        itineraryLocation5: tour?.itinerary[4].location,
+        itineraryDetails5: tour?.itinerary[4].details,
+        discountPrice: tour?.price.discountPrice,
+        actualPrice: tour?.price.actualPrice,
+        offPercentage: tour?.price.offPercentage,
+        testimonies: tour?.testimonies,
+        service1: tour?.services[0].service,
+        charge1: tour?.services[0].charge,
+        service2: tour?.services[1].service,
+        charge2: tour?.services[1].charge,
+        service3: tour?.services[2].service,
+        charge3: tour?.services[2].charge,
+        service4: tour?.services[3].service,
+        charge4: tour?.services[3].charge,
+        service5: tour?.services[4].service,
+        charge5: tour?.services[4].charge,
+        service6: tour?.services[5].service,
+        charge6: tour?.services[5].charge,
+        service7: tour?.services[6].service,
+        charge7: tour?.services[6].charge,
+        service8: tour?.services[7].service,
+        charge8: tour?.services[7].charge,
+        service9: tour?.services[8].service,
+        charge9: tour?.services[8].charge,
+        service10: tour?.services[9].service,
+        charge10: tour?.services[9].charge,
+      });
+      console.log(details);
+    }
+  }, []);
 
   return (
     <div className="new-tour">
@@ -283,6 +381,7 @@ const NewTour = ({ close }) => {
                 name="title"
                 onChange={handleChange}
                 placeholder="Tour's title"
+                defaultValue={tour ? tour.title : null}
                 required
               ></input>
             </div>
@@ -295,6 +394,7 @@ const NewTour = ({ close }) => {
                 name="destination"
                 onChange={handleChange}
                 placeholder="Tour's destination"
+                defaultValue={tour ? tour.destination : null}
                 required
               ></input>
             </div>
@@ -308,6 +408,7 @@ const NewTour = ({ close }) => {
                   id="category"
                   onChange={handleChange}
                   placeholder="4°"
+                  defaultValue={tour ? tour.dayTemp : null}
                   required
                 ></input>
               </div>
@@ -320,6 +421,7 @@ const NewTour = ({ close }) => {
                   id="subCategory"
                   onChange={handleChange}
                   placeholder="5°"
+                  defaultValue={tour ? tour.nightTemp : null}
                   required
                 ></input>
               </div>
@@ -333,6 +435,7 @@ const NewTour = ({ close }) => {
                 name="highlightTitle"
                 onChange={handleChange}
                 placeholder="Highlights title"
+                defaultValue={tour ? tour.hightlights.title : null}
                 required
               ></input>
             </div>
@@ -344,6 +447,7 @@ const NewTour = ({ close }) => {
                 name="pt1"
                 onChange={handleChange}
                 placeholder="Point 1"
+                defaultValue={tour ? tour.hightlights.data[0] : null}
                 required
               ></input>
             </div>
@@ -355,6 +459,7 @@ const NewTour = ({ close }) => {
                 name="pt2"
                 onChange={handleChange}
                 placeholder="Point 2"
+                defaultValue={tour ? tour.hightlights.data[1] : null}
                 required
               ></input>
             </div>
@@ -366,6 +471,7 @@ const NewTour = ({ close }) => {
                 name="pt3"
                 onChange={handleChange}
                 placeholder="Point 3"
+                defaultValue={tour ? tour.hightlights.data[2] : null}
                 required
               ></input>
             </div>
@@ -377,6 +483,7 @@ const NewTour = ({ close }) => {
                 name="pt4"
                 onChange={handleChange}
                 placeholder="Point 4"
+                defaultValue={tour ? tour.hightlights.data[3] : null}
                 required
               ></input>
             </div>
@@ -388,6 +495,7 @@ const NewTour = ({ close }) => {
                 name="pt5"
                 onChange={handleChange}
                 placeholder="Point 5"
+                defaultValue={tour ? tour.hightlights.data[4] : null}
                 required
               ></input>
             </div>
@@ -400,6 +508,7 @@ const NewTour = ({ close }) => {
                 name="overviewTitle"
                 onChange={handleChange}
                 placeholder="Overview Title"
+                defaultValue={tour ? tour.overview.title : null}
                 required
               ></input>
             </div>
@@ -411,6 +520,7 @@ const NewTour = ({ close }) => {
                 name="overviewLocation"
                 onChange={handleChange}
                 placeholder="Overview Location"
+                defaultValue={tour ? tour.overview.location : null}
                 required
               ></input>
             </div>
@@ -424,6 +534,7 @@ const NewTour = ({ close }) => {
                   name="checkIn"
                   onChange={handleChange}
                   placeholder="02:00 PM"
+                  defaultValue={tour ? tour.overview.checkIn : null}
                   required
                 ></input>
               </div>
@@ -436,6 +547,7 @@ const NewTour = ({ close }) => {
                   name="checkOut"
                   onChange={handleChange}
                   placeholder="02:00 PM"
+                  defaultValue={tour ? tour.overview.checkOut : null}
                   required
                 ></input>
               </div>
@@ -449,6 +561,7 @@ const NewTour = ({ close }) => {
                 name="overviewDesc"
                 onChange={handleChange}
                 placeholder="Description"
+                defaultValue={tour ? tour.overview.desc : null}
                 required
               ></textarea>
             </div>
@@ -462,6 +575,7 @@ const NewTour = ({ close }) => {
                   name="itineraryTitle1"
                   onChange={handleChange}
                   placeholder="Title"
+                  defaultValue={tour ? tour.itinerary[0].title : null}
                   required
                 ></input>
               </div>
@@ -473,6 +587,7 @@ const NewTour = ({ close }) => {
                   name="itinerarySub1"
                   onChange={handleChange}
                   placeholder="Sub-title"
+                  defaultValue={tour ? tour.itinerary[0].subtitle : null}
                   required
                 ></input>
               </div>
@@ -484,6 +599,7 @@ const NewTour = ({ close }) => {
                   name="itineraryLocation1"
                   onChange={handleChange}
                   placeholder="Location"
+                  defaultValue={tour ? tour.itinerary[0].location : null}
                   required
                 ></input>
               </div>
@@ -495,6 +611,7 @@ const NewTour = ({ close }) => {
                   name="itineraryDetails1"
                   onChange={handleChange}
                   placeholder="Details"
+                  defaultValue={tour ? tour.itinerary[0].details : null}
                   required
                 ></input>
               </div>
@@ -529,6 +646,7 @@ const NewTour = ({ close }) => {
                     name="itineraryTitle2"
                     onChange={handleChange}
                     placeholder="Title"
+                    defaultValue={tour ? tour.itinerary[1].title : null}
                     required
                   ></input>
                 </div>
@@ -540,6 +658,7 @@ const NewTour = ({ close }) => {
                     name="itinerarySub2"
                     onChange={handleChange}
                     placeholder="Sub-title"
+                    defaultValue={tour ? tour.itinerary[1].subtitle : null}
                     required
                   ></input>
                 </div>
@@ -551,6 +670,7 @@ const NewTour = ({ close }) => {
                     name="itineraryLocation2"
                     onChange={handleChange}
                     placeholder="Location"
+                    defaultValue={tour ? tour.itinerary[1].location : null}
                     required
                   ></input>
                 </div>
@@ -562,6 +682,7 @@ const NewTour = ({ close }) => {
                     name="itineraryDetails2"
                     onChange={handleChange}
                     placeholder="Details"
+                    defaultValue={tour ? tour.itinerary[1].details : null}
                     required
                   ></input>
                 </div>
@@ -597,6 +718,7 @@ const NewTour = ({ close }) => {
                     name="itineraryTitle3"
                     onChange={handleChange}
                     placeholder="Title"
+                    defaultValue={tour ? tour.itinerary[2].title : null}
                     required
                   ></input>
                 </div>
@@ -608,6 +730,7 @@ const NewTour = ({ close }) => {
                     name="itinerarySub3"
                     onChange={handleChange}
                     placeholder="Sub-title"
+                    defaultValue={tour ? tour.itinerary[2].subtitle : null}
                     required
                   ></input>
                 </div>
@@ -619,6 +742,7 @@ const NewTour = ({ close }) => {
                     name="itineraryLocation3"
                     onChange={handleChange}
                     placeholder="Location"
+                    defaultValue={tour ? tour.itinerary[2].location : null}
                     required
                   ></input>
                 </div>
@@ -630,6 +754,7 @@ const NewTour = ({ close }) => {
                     name="itineraryDetails3"
                     onChange={handleChange}
                     placeholder="Details"
+                    defaultValue={tour ? tour.itinerary[2].details : null}
                     required
                   ></input>
                 </div>
@@ -665,6 +790,7 @@ const NewTour = ({ close }) => {
                     name="itineraryTitle4"
                     onChange={handleChange}
                     placeholder="Title"
+                    defaultValue={tour ? tour.itinerary[3].title : null}
                     required
                   ></input>
                 </div>
@@ -676,6 +802,7 @@ const NewTour = ({ close }) => {
                     name="itinerarySub4"
                     onChange={handleChange}
                     placeholder="Sub-title"
+                    defaultValue={tour ? tour.itinerary[3].subtitle : null}
                     required
                   ></input>
                 </div>
@@ -687,6 +814,7 @@ const NewTour = ({ close }) => {
                     name="itineraryLocation4"
                     onChange={handleChange}
                     placeholder="Location"
+                    defaultValue={tour ? tour.itinerary[3].location : null}
                     required
                   ></input>
                 </div>
@@ -698,6 +826,7 @@ const NewTour = ({ close }) => {
                     name="itineraryDetails4"
                     onChange={handleChange}
                     placeholder="Details"
+                    defaultValue={tour ? tour.itinerary[3].details : null}
                     required
                   ></input>
                 </div>
@@ -733,6 +862,7 @@ const NewTour = ({ close }) => {
                     name="itineraryTitle5"
                     onChange={handleChange}
                     placeholder="Title"
+                    defaultValue={tour ? tour.itinerary[4].title : null}
                     required
                   ></input>
                 </div>
@@ -744,6 +874,7 @@ const NewTour = ({ close }) => {
                     name="itinerarySub5"
                     onChange={handleChange}
                     placeholder="Sub-title"
+                    defaultValue={tour ? tour.itinerary[4].subtitle : null}
                     required
                   ></input>
                 </div>
@@ -755,6 +886,7 @@ const NewTour = ({ close }) => {
                     name="itineraryLocation5"
                     onChange={handleChange}
                     placeholder="Location"
+                    defaultValue={tour ? tour.itinerary[4].location : null}
                     required
                   ></input>
                 </div>
@@ -766,6 +898,7 @@ const NewTour = ({ close }) => {
                     name="itineraryDetails5"
                     onChange={handleChange}
                     placeholder="Details"
+                    defaultValue={tour ? tour.itinerary[4].details : null}
                     required
                   ></input>
                 </div>
@@ -781,6 +914,7 @@ const NewTour = ({ close }) => {
                   name="discountPrice"
                   onChange={handleChange}
                   placeholder="5,000"
+                  defaultValue={tour ? tour.price.discountPrice : null}
                   required
                 ></input>
               </div>
@@ -793,6 +927,7 @@ const NewTour = ({ close }) => {
                   name="actualPrice"
                   onChange={handleChange}
                   placeholder="8,000"
+                  defaultValue={tour ? tour.price.actualPrice : null}
                   required
                 ></input>
               </div>
@@ -807,6 +942,7 @@ const NewTour = ({ close }) => {
                   name="offPercentage"
                   onChange={handleChange}
                   placeholder="32%"
+                  defaultValue={tour ? tour.price.offPercentage : null}
                   required
                 ></input>
               </div>
@@ -819,6 +955,7 @@ const NewTour = ({ close }) => {
                   name="testimonies"
                   onChange={handleChange}
                   placeholder="Youtube link"
+                  defaultValue={tour ? tour.testimonies : null}
                   required
                 ></input>
               </div>
@@ -834,6 +971,7 @@ const NewTour = ({ close }) => {
                     name="service1"
                     onChange={handleChange}
                     placeholder="service 1"
+                    defaultValue={tour ? tour.services[0].service : null}
                     required
                   ></input>
                 </div>
@@ -847,6 +985,7 @@ const NewTour = ({ close }) => {
                     name="charge1"
                     onChange={handleChange}
                     placeholder="charge 1"
+                    defaultValue={tour ? tour.services[0].charge : null}
                     required
                   ></input>
                 </div>
@@ -861,6 +1000,7 @@ const NewTour = ({ close }) => {
                     name="service2"
                     onChange={handleChange}
                     placeholder="service 2"
+                    defaultValue={tour ? tour.services[1]?.service : null}
                     required
                   ></input>
                 </div>
@@ -874,6 +1014,7 @@ const NewTour = ({ close }) => {
                     name="charge2"
                     onChange={handleChange}
                     placeholder="charge 2"
+                    defaultValue={tour ? tour.services[1]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -888,6 +1029,7 @@ const NewTour = ({ close }) => {
                     name="service3"
                     onChange={handleChange}
                     placeholder="service 3"
+                    defaultValue={tour ? tour.services[2]?.service : null}
                     required
                   ></input>
                 </div>
@@ -901,6 +1043,7 @@ const NewTour = ({ close }) => {
                     name="charge3"
                     onChange={handleChange}
                     placeholder="charge 3"
+                    defaultValue={tour ? tour.services[2]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -915,6 +1058,7 @@ const NewTour = ({ close }) => {
                     name="service4"
                     onChange={handleChange}
                     placeholder="service 4"
+                    defaultValue={tour ? tour.services[3]?.service : null}
                     required
                   ></input>
                 </div>
@@ -928,6 +1072,7 @@ const NewTour = ({ close }) => {
                     name="charge4"
                     onChange={handleChange}
                     placeholder="charge 4"
+                    defaultValue={tour ? tour.services[3]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -942,6 +1087,7 @@ const NewTour = ({ close }) => {
                     name="service5"
                     onChange={handleChange}
                     placeholder="service 5"
+                    defaultValue={tour ? tour.services[4]?.service : null}
                     required
                   ></input>
                 </div>
@@ -955,6 +1101,7 @@ const NewTour = ({ close }) => {
                     name="charge5"
                     onChange={handleChange}
                     placeholder="charge 5"
+                    defaultValue={tour ? tour.services[4]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -969,6 +1116,7 @@ const NewTour = ({ close }) => {
                     name="service6"
                     onChange={handleChange}
                     placeholder="service 6"
+                    defaultValue={tour ? tour.services[5]?.service : null}
                     required
                   ></input>
                 </div>
@@ -982,6 +1130,7 @@ const NewTour = ({ close }) => {
                     name="charge6"
                     onChange={handleChange}
                     placeholder="charge 6"
+                    defaultValue={tour ? tour.services[5]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -996,6 +1145,7 @@ const NewTour = ({ close }) => {
                     name="service7"
                     onChange={handleChange}
                     placeholder="service 7"
+                    defaultValue={tour ? tour.services[6]?.service : null}
                     required
                   ></input>
                 </div>
@@ -1009,6 +1159,7 @@ const NewTour = ({ close }) => {
                     name="charge7"
                     onChange={handleChange}
                     placeholder="charge 7"
+                    defaultValue={tour ? tour.services[6]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -1023,6 +1174,7 @@ const NewTour = ({ close }) => {
                     name="service8"
                     onChange={handleChange}
                     placeholder="service 8"
+                    defaultValue={tour ? tour.services[7]?.service : null}
                     required
                   ></input>
                 </div>
@@ -1036,6 +1188,7 @@ const NewTour = ({ close }) => {
                     name="charge8"
                     onChange={handleChange}
                     placeholder="charge 8"
+                    defaultValue={tour ? tour.services[7]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -1050,6 +1203,7 @@ const NewTour = ({ close }) => {
                     name="service9"
                     onChange={handleChange}
                     placeholder="service 9"
+                    defaultValue={tour ? tour.services[8]?.service : null}
                     required
                   ></input>
                 </div>
@@ -1063,6 +1217,7 @@ const NewTour = ({ close }) => {
                     name="charge9"
                     onChange={handleChange}
                     placeholder="charge 9"
+                    defaultValue={tour ? tour.services[8]?.charge : null}
                     required
                   ></input>
                 </div>
@@ -1077,6 +1232,7 @@ const NewTour = ({ close }) => {
                     name="service10"
                     onChange={handleChange}
                     placeholder="service 10"
+                    defaultValue={tour ? tour.services[9]?.service : null}
                     required
                   ></input>
                 </div>
@@ -1090,6 +1246,7 @@ const NewTour = ({ close }) => {
                     name="charge10"
                     onChange={handleChange}
                     placeholder="charge 10"
+                    defaultValue={tour ? tour.services[9]?.charge : null}
                     required
                   ></input>
                 </div>

@@ -7,6 +7,7 @@ import NewTour from "../NewTour/NewTour";
 const Tours = () => {
   const [tours, setTours] = useState();
   const [add, setAdd] = useState(false);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     const getTours = async () => {
@@ -31,6 +32,7 @@ const Tours = () => {
       <div className="tours">
         {add ? (
           <NewTour
+            id={id}
             close={() => {
               setAdd(false);
             }}
@@ -83,7 +85,15 @@ const Tours = () => {
                   >
                     Delete
                   </td>
-                  <td className="btn-edit">Edit</td>
+                  <td
+                    className="btn-edit"
+                    onClick={() => {
+                      setId(tour.id);
+                      setAdd(true);
+                    }}
+                  >
+                    Edit
+                  </td>
                 </tr>
               );
             })}

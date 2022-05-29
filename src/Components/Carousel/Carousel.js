@@ -17,6 +17,9 @@ import TourCardT2 from "../TourCardT2/TourCardT2";
 
 const Carousel = () => {
   const [destinations, setDestinations] = useState([]);
+  const [banner1, setBanner1] = useState();
+  const [banner2, setBanner2] = useState();
+  const [carouselTitle, setCarouselTitle] = useState();
 
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
@@ -107,8 +110,19 @@ const Carousel = () => {
     const getBanner1 = async () => {
       const docRef = doc(db, "homepage", "banner1");
       const docSnap = await getDoc(docRef);
+      setBanner1(docSnap.data());
     };
+    getBanner1();
+    const getTitle = async () => {
+      const docRef = doc(db, "homepage", "CarouselTitle");
+      const docSnap = await getDoc(docRef);
+      setCarouselTitle(docSnap.data());
+    };
+    getTitle();
   }, []);
+
+  console.log(banner1);
+  console.log(banner2);
 
   return (
     <div className="carousel">
@@ -141,13 +155,14 @@ const Carousel = () => {
       </div>
       <div className="carousel-scroll-banner">
         <Slider {...settings2}>
-          <div className="banner"></div>
-          <div className="banner"></div>
+          {banner1?.imgLink.map((img, key) => {
+            return <img src={img} alt="advt" className="banner_img" />;
+          })}
         </Slider>
       </div>
       <div className="carousel-scroll type2">
         <h1>
-          Title goes here
+          {carouselTitle ? carouselTitle.title : ""}
           <span>
             <img src={stroke} alt="stroke" />
           </span>

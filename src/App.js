@@ -14,14 +14,33 @@ import Destinations from "./Components/AdminPanel/Destinations/Destinations";
 import Lead from "./Components/AdminPanel/Leads/Lead";
 import AdminBlogs from "./Components/AdminPanel/Blogs/Blogs";
 import Homepage from "./Components/AdminPanel/Homepage/Homepage";
+import { useEffect, useState } from "react";
+import Contact from "./Pages/Contact/Contact";
 
 // import Product from "./Pages/Product/Product";
 
 function App() {
   let location = useLocation();
+  const [popup, setPopup] = useState(false);
+
+  useEffect(() => {
+    if (!location.pathname.includes("admin")) {
+      setTimeout(() => {
+        setPopup(true);
+      }, 20000);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="App">
+      {popup ? (
+        <Contact
+          enquire
+          close={() => {
+            setPopup(false);
+          }}
+        />
+      ) : null}
       {location.pathname.includes("admin") ? null : (
         <Nav
           colour={

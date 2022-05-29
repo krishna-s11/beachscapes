@@ -10,6 +10,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
+import Loader from "../../Loader/Loader";
 
 const Destinations = () => {
   const [details, setDetails] = useState({
@@ -17,6 +18,7 @@ const Destinations = () => {
   });
 
   const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [image, setImage] = useState([]);
 
@@ -32,6 +34,7 @@ const Destinations = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     const randomId = uuidv4();
     const storageRef = ref(storage, `destinations/${randomId}`);
     await uploadBytes(storageRef, image).then((snapshot) => {
@@ -42,6 +45,7 @@ const Destinations = () => {
     );
 
     await addDoc(collection(db, "destinations"), { ...details, downloadUrl });
+    setLoading(false);
     window.location.reload();
   };
 
@@ -97,7 +101,7 @@ const Destinations = () => {
             className="file-input"
           ></input>
           <button className="btn-create" onClick={handleSubmit}>
-            Create
+            {loading ? <Loader small /> : "Create"}
           </button>
         </div>
       </div>

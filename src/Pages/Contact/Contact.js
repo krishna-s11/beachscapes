@@ -8,7 +8,7 @@ import { db } from "../../firebase";
 import emailjs from "emailjs-com";
 import Loader from "../../Components/Loader/Loader";
 
-const Contact = ({ close, name }) => {
+const Contact = ({ close, name, enquire }) => {
   const [details, setDetails] = useState({
     firstName: "",
     lastName: "",
@@ -17,6 +17,9 @@ const Contact = ({ close, name }) => {
     nop: "",
     couponCode: "",
     request: "",
+    destination: "",
+    from_dt: "",
+    to_dt: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -56,6 +59,9 @@ const Contact = ({ close, name }) => {
       number_of_people: details.nop,
       coupon_code: details.couponCode,
       any_request: details.request,
+      destination: details.destination,
+      from_dt: details.from_dt,
+      to_dt: details.to_dt,
     };
     await addDoc(collection(db, "leads"), { ...details, name });
     sendEmail(e, templateParams);
@@ -74,75 +80,137 @@ const Contact = ({ close, name }) => {
         />
         <div className="contact-img-holder">
           <img className="contact-img" src={image1} alt=""></img>
-          <div className="contact-img-content">
-            <p>You picked</p>
-            <p className="contact-tour-name">{name}</p>
-            <p>
-              <span>
-                <img src={location} alt="" />
-              </span>
-              Maldives
-            </p>
-          </div>
+          {!enquire ? (
+            <div className="contact-img-content">
+              <p>You picked</p>
+              <p className="contact-tour-name">{name}</p>
+              <p>
+                <span>
+                  <img src={location} alt="" />
+                </span>
+                Maldives
+              </p>
+            </div>
+          ) : null}
         </div>
         <div className="contact-rt">
           <div style={{ display: "flex", justifyContent: "center" }}>
             <h2>Contact Form</h2>
           </div>
-          <div className="contact-frm">
-            <div>
+          {!enquire ? (
+            <div className="contact-frm">
+              <div>
+                <input
+                  type="text"
+                  name="firstName"
+                  onChange={handleChange}
+                  placeholder="First Name"
+                ></input>
+                <input
+                  type="text"
+                  name="lastName"
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                ></input>
+              </div>
               <input
-                type="text"
-                name="firstName"
+                type="email"
+                className="emnum"
+                name="email"
                 onChange={handleChange}
-                placeholder="First Name"
+                placeholder="Email ID"
               ></input>
               <input
-                type="text"
-                name="lastName"
+                type="tel"
+                className="emnum"
+                name="phone"
+                maxLength={10}
                 onChange={handleChange}
-                placeholder="Last Name"
+                placeholder="Phone No"
               ></input>
+              <div>
+                <input
+                  type="number"
+                  name="nop"
+                  onChange={handleChange}
+                  placeholder="No. of people"
+                ></input>
+                <input
+                  type="text"
+                  name="couponCode"
+                  onChange={handleChange}
+                  placeholder="Coupon Code"
+                ></input>
+              </div>
+              <textarea
+                rows="4"
+                name="request"
+                onChange={handleChange}
+                placeholder="Any request"
+              ></textarea>
+              <button onClick={handleSubmit}>
+                {loading ? <Loader small /> : "Submit"}
+              </button>
             </div>
-            <input
-              type="email"
-              className="emnum"
-              name="email"
-              onChange={handleChange}
-              placeholder="Email ID"
-            ></input>
-            <input
-              type="tel"
-              className="emnum"
-              name="phone"
-              maxLength={10}
-              onChange={handleChange}
-              placeholder="Phone No"
-            ></input>
-            <div>
+          ) : (
+            <div className="contact-frm">
+              <div>
+                <input
+                  type="text"
+                  name="firstName"
+                  onChange={handleChange}
+                  placeholder="First Name"
+                ></input>
+                <input
+                  type="text"
+                  name="lastName"
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                ></input>
+              </div>
               <input
-                type="number"
-                name="nop"
+                type="email"
+                className="emnum"
+                name="email"
                 onChange={handleChange}
-                placeholder="No. of people"
+                placeholder="Email ID"
+              ></input>
+              <input
+                type="tel"
+                className="emnum"
+                name="phone"
+                maxLength={10}
+                onChange={handleChange}
+                placeholder="Phone No"
               ></input>
               <input
                 type="text"
-                name="couponCode"
+                className="destination emnum"
+                name="destination"
                 onChange={handleChange}
-                placeholder="Coupon Code"
+                placeholder="Where do you want to go? "
               ></input>
+              <div>
+                <input
+                  type="date"
+                  name="from_dt"
+                  id="from_dt"
+                  onChange={handleChange}
+                  className="from_dt"
+                />
+                <input
+                  type="date"
+                  name="to_dt"
+                  id="to_dt"
+                  onChange={handleChange}
+                  className="to_dt"
+                />
+              </div>
+              <button onClick={handleSubmit}>
+                {loading ? <Loader small /> : "Submit"}
+              </button>
             </div>
-            <textarea
-              rows="4"
-              name="request"
-              onChange={handleChange}
-              placeholder="Any request"
-            ></textarea>
-            <button onClick={handleSubmit}>
-              {loading ? <Loader small /> : "Submit"}
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>

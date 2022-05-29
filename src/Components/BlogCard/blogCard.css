@@ -14,6 +14,8 @@
 }
 .blog-card img {
   margin-bottom: 0;
+  width: 380px;
+  height: 190px;
 }
 .hr {
   width: 100%;

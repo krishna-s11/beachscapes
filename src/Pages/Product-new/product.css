@@ -37,17 +37,16 @@
 .additional-videos-holder {
   width: 100%;
   height: 250px;
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
   padding-top: 20px;
 }
 .video-container {
-  min-width: 310px;
+  max-width: 310px;
   height: 181px;
+  margin-left: 20px;
   z-index: 1;
   overflow: hidden;
   border-radius: 15px;
+  position: relative;
 }
 .video-container:not(:first-child) {
   margin-left: 10px;

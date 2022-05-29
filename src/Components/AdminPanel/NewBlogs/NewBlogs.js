@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import "./newBlogs.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { db, storage } from "../../../firebase";
+import { v4 as uuidv4 } from "uuid";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Loader from "../../Loader/Loader";
 
 const NewBlogs = ({ close }) => {
   const [details, setDetails] = useState({
@@ -20,19 +23,37 @@ const NewBlogs = ({ close }) => {
     para9: "",
     para10: "",
   });
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const defaultBtn = () => {
     const defaultBtn = document.querySelector("#choose-input");
     defaultBtn.click();
   };
   const handleUpload = (e) => {
-    // for (var i = 0; i < e.target.files.length; i++) {
-    //   const newImage = e.target.files[i];
-    //   setImages((prevState) => [...prevState, newImage]);
-    // }
-    // console.log(images);
+    for (var i = 0; i < Object.keys(e.target.files).length; i++) {
+      const newImage = e.target.files[i];
+      setImages((prevState) => [...prevState, newImage]);
+    }
   };
   const handleSubmit = async () => {
-    await addDoc(collection(db, "blogs"), details);
+    setLoading(true);
+    let imgLink = [];
+    const randomId = uuidv4();
+    imgLink = await Promise.all(
+      images.map(async (image, key) => {
+        const storageRef = ref(storage, `blogs/${randomId}/${key}`);
+        await uploadBytes(storageRef, image).then((snapshot) => {
+          console.log("uploaded");
+        });
+        const downloadUrl = await getDownloadURL(
+          ref(storage, `blogs/${randomId}/${key}`)
+        );
+        return downloadUrl;
+      })
+    );
+    await setDoc(doc(db, "blogs", randomId), { ...details, imgLink });
+    setLoading(false);
     close();
     window.location.reload();
   };
@@ -244,7 +265,7 @@ const NewBlogs = ({ close }) => {
               }}
             >
               <button className="btn btn-add-tour" onClick={handleSubmit}>
-                Create Blog
+                {loading ? <Loader small /> : "Create Blog"}
               </button>
             </div>
           </div>

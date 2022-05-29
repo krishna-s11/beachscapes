@@ -34,7 +34,7 @@ const TourCard = ({ image, data }) => {
             <span>₹{tour.price.actualPrice}</span>
           </p>
           <div className="temp-info">
-            <p class="dayTemp">
+            {/* <p class="dayTemp">
               <span>
                 <img src={day} alt="day" />
               </span>
@@ -45,7 +45,7 @@ const TourCard = ({ image, data }) => {
                 <img src={night} alt="night" />
               </span>
               {tour.nightTemp}
-            </p>
+            </p> */}
           </div>
           <h1 className="tour-loc">
             <span>

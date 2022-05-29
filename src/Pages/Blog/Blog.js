@@ -5,6 +5,7 @@ import Enquire from "../../Components/Enquire/Enquire";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import Slider from "react-slick";
 
 const Blog = () => {
   const { id } = useParams();
@@ -20,6 +21,17 @@ const Blog = () => {
     getBlog();
   }, [id]);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+  };
+
   return (
     <div className="blog-pg">
       <div className="hero"></div>
@@ -28,7 +40,12 @@ const Blog = () => {
         <div className="blog-details">
           <div className="blog-details-lt">
             <h1>1. {data?.title}</h1>
-            <img src={blog} alt=""></img>
+            {/* <img src={blog} alt=""></img> */}
+            <Slider {...settings}>
+              {data?.imgLink.map((img, key) => {
+                return <img src={img} alt={`${data.title}${key}`} />;
+              })}
+            </Slider>
             <p>
               <span style={{ color: "#FF5D2C" }}>Update 2021: </span>{" "}
               {data?.para1}

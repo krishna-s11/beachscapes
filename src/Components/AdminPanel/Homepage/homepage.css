@@ -13,10 +13,19 @@
   border-radius: 10px;
   display: flex;
 }
+.homepage-holder:not(:first-child) {
+  margin-top: 30px;
+  width: 600px;
+}
 .homepage-left {
   width: 100%;
   padding-right: 20px;
 }
 .homepage-right {
   width: 100%;
+}
+.carousel_title {
+  width: 400px;
+  border: 1px solid #777;
+  padding: 10px;
 }

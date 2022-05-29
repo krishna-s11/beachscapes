@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./nav.css";
 import logo from "../../assets/logo.svg";
 import search from "../../assets/search.svg";
@@ -8,9 +8,11 @@ import ourPackage from "../../assets/ourPackages.svg";
 import blogs from "../../assets/blogs.svg";
 import aboutUs from "../../assets/aboutUs.svg";
 import contactUs from "../../assets/contactUs.svg";
+import Contact from "../../Pages/Contact/Contact";
 
 const Nav = (props) => {
   let navigate = useNavigate();
+  const [popup, setPopup] = useState(false);
 
   const handleHam = () => {
     document.getElementById("menu").classList.toggle("menu-open");
@@ -18,6 +20,14 @@ const Nav = (props) => {
 
   return (
     <div className="navbar" style={{ background: props.colour }}>
+      {popup ? (
+        <Contact
+          enquire
+          close={() => {
+            setPopup(false);
+          }}
+        />
+      ) : null}
       <img
         src={logo}
         alt="beachscapes"
@@ -39,6 +49,12 @@ const Nav = (props) => {
         <img src={ham} alt="menu" id="hamburger" onClick={handleHam} />
         <div className="menu" id="menu">
           <ul>
+            <li>
+              <span>
+                <img src={aboutUs} alt="about beachscapes" id="about"></img>
+              </span>
+              Home
+            </li>
             <li
               onClick={() => {
                 navigate("/tours");
@@ -61,13 +77,12 @@ const Nav = (props) => {
               </span>
               Blogs
             </li>
-            <li>
-              <span>
-                <img src={aboutUs} alt="about beachscapes" id="about"></img>
-              </span>
-              About Us
-            </li>
-            <li>
+            <li
+              onClick={() => {
+                setPopup(true);
+                handleHam();
+              }}
+            >
               <span>
                 <img
                   src={contactUs}

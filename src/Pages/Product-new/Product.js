@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./product.css";
-import image1 from "../../assets/product1.png";
-import image2 from "../../assets/product2.png";
-import image3 from "../../assets/product3.png";
-import image4 from "../../assets/mumbai.jpeg";
+import left from "../../assets/left.svg";
+import right from "../../assets/right.svg";
 import TourTitle from "../../Components/Cards/TourTitle/TourTitle";
 import Itinerary from "../../Components/Itinerary/Itinerary";
 import Testimonies from "../../Components/Testimonies/Testimonies";
@@ -34,6 +32,31 @@ const Product = () => {
 
   console.log(tour);
 
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <img
+        src={left}
+        class={className}
+        style={{ ...style, transform: "scale(2)" }}
+        onClick={onClick}
+        alt="left"
+      />
+    );
+  }
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <img
+        src={right}
+        className={className}
+        style={{ ...style, transform: "scale(2)" }}
+        onClick={onClick}
+        alt="right"
+      />
+    );
+  }
+
   const settings = {
     dots: true,
     infinite: true,
@@ -45,6 +68,20 @@ const Product = () => {
     pauseOnHover: true,
   };
 
+  const settings2 = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: false,
+    row: 1,
+    autoplaySpeed: 2000,
+    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+  };
+
   if (tour) {
     return (
       <div className="product-new">
@@ -54,6 +91,7 @@ const Product = () => {
             close={() => {
               setContact(false);
             }}
+            enquire={false}
           />
         ) : null}
         {priceDetails ? (
@@ -90,7 +128,42 @@ const Product = () => {
                   <h1>Hotel Videos & Images</h1>
                 </div>
                 <div className="additional-videos-holder">
-                  <div className="video-container">
+                  <Slider {...settings2}>
+                    <div className="video-container">
+                      <iframe
+                        width="310px"
+                        height="181px"
+                        src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    </div>
+                    <div className="video-container">
+                      <iframe
+                        width="310px"
+                        height="181px"
+                        src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    </div>
+                    <div className="video-container">
+                      <iframe
+                        width="310px"
+                        height="181px"
+                        src="https://www.youtube.com/embed/XLlP-_Abd5k"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    </div>
+                  </Slider>
+                  {/* <div className="video-container">
                     <iframe
                       width="310px"
                       height="181px"
@@ -133,7 +206,7 @@ const Product = () => {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowfullscreen
                     ></iframe>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* <AdditionalVideos /> */}

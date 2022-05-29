@@ -17,6 +17,7 @@ const Homepage = () => {
   const [banner1, setBanner1] = useState([]);
   const [banner2, setBanner2] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState();
 
   const handleUploadBanner1 = (e) => {
     for (var i = 0; i < Object.keys(e.target.files).length; i++) {
@@ -71,6 +72,12 @@ const Homepage = () => {
     setLoading(false);
     window.location.reload();
   };
+  const submitTitle = async () => {
+    setLoading(true);
+    await setDoc(doc(db, "homepage", "CarouselTitle"), { title });
+    setLoading(false);
+    window.location.reload();
+  };
 
   return (
     <div className="homepage">
@@ -85,7 +92,7 @@ const Homepage = () => {
             multiple
           ></input>
           <button className="btn-create" onClick={uploadBanner1}>
-            Upload
+            {loading ? <Loader small /> : "Upload"}
           </button>
         </div>
         <div className="homepage-right">
@@ -101,6 +108,20 @@ const Homepage = () => {
             {loading ? <Loader small /> : "Upload"}
           </button>
         </div>
+      </div>
+      <div className="homepage-holder">
+        <input
+          type="text"
+          name="carousel_title"
+          className="carousel_title"
+          placeholder="Title goes here..."
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <button className="btn-create" onClick={submitTitle}>
+          {loading ? <Loader small /> : "Submit"}
+        </button>
       </div>
     </div>
   );
