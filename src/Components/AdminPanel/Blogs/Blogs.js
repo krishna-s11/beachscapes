@@ -7,6 +7,7 @@ import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 const Blogs = () => {
   const [add, setAdd] = useState(false);
   const [blogs, setBlogs] = useState();
+  const [id, setId] = useState();
 
   useEffect(() => {
     const getTours = async () => {
@@ -20,6 +21,12 @@ const Blogs = () => {
     };
     getTours();
   }, []);
+
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "blogs", id));
+    window.location.reload();
+  };
+
   return (
     <div className="admin-blogs">
       {add ? (
@@ -27,6 +34,7 @@ const Blogs = () => {
           close={() => {
             setAdd(false);
           }}
+          id={id}
         />
       ) : null}
       <div className="admin-blogs-top">
@@ -67,12 +75,20 @@ const Blogs = () => {
                 <td
                   className="btn-del"
                   onClick={() => {
-                    //   handleDelete(tour.id);
+                    handleDelete(blog.id);
                   }}
                 >
                   Delete
                 </td>
-                <td className="btn-edit">Edit</td>
+                <td
+                  className="btn-edit"
+                  onClick={() => {
+                    setId(blog.id);
+                    setAdd(true);
+                  }}
+                >
+                  Edit
+                </td>
               </tr>
             );
           })}

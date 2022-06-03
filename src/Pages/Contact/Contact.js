@@ -63,7 +63,11 @@ const Contact = ({ close, name, enquire }) => {
       from_dt: details.from_dt,
       to_dt: details.to_dt,
     };
-    await addDoc(collection(db, "leads"), { ...details, name });
+    if (name) {
+      await addDoc(collection(db, "leads"), { ...details, name });
+    } else {
+      await addDoc(collection(db, "leads"), { ...details });
+    }
     sendEmail(e, templateParams);
     setLoading(false);
     close();

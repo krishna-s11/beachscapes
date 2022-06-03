@@ -1,4 +1,36 @@
-/* .footer {
+.footer {
   width: 100%;
-  background-color: #ff5d2c;
-} */
+  background-color: #17648f;
+  padding: 50px;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+.footer-content {
+  text-align: center;
+  color: #fff;
+}
+.logo-title {
+  color: #fff;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+#footer-tel {
+  margin-top: -10px;
+}
+.social-links {
+  margin-top: 40px;
+  /* display: flex; */
+}
+#insta-ico {
+  color: #fff;
+  font-size: 28px;
+}
+.social-link {
+  cursor: pointer;
+  color: #fff;
+  font-size: 28px;
+}
+.social-link:not(:first-child) {
+  margin-left: 20px;
+}

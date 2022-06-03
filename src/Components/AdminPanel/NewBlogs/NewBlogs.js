@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./newBlogs.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, updateDoc, getDoc, setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../../../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../../Loader/Loader";
 
-const NewBlogs = ({ close }) => {
+const NewBlogs = ({ close, id }) => {
   const [details, setDetails] = useState({
     heading: "",
     title: "",
@@ -23,6 +23,7 @@ const NewBlogs = ({ close }) => {
     para9: "",
     para10: "",
   });
+  const [blog, setBlog] = useState();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +53,15 @@ const NewBlogs = ({ close }) => {
         return downloadUrl;
       })
     );
-    await setDoc(doc(db, "blogs", randomId), { ...details, imgLink });
+    if (!id) {
+      await setDoc(doc(db, "blogs", randomId), { ...details, imgLink });
+    } else {
+      if (imgLink.length > 0) {
+        await updateDoc(doc(db, "blogs", id), { ...details, imgLink });
+      } else {
+        await updateDoc(doc(db, "blogs", id), { ...details });
+      }
+    }
     setLoading(false);
     close();
     window.location.reload();
@@ -63,6 +72,25 @@ const NewBlogs = ({ close }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    if (id) {
+      const getBlog = async () => {
+        const docRef = doc(db, "blogs", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setBlog(docSnap.data());
+          setDetails(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      };
+      getBlog();
+    }
+  }, [id]);
+
+  console.log(blog);
+  console.log(details);
 
   return (
     <div className="new-blogs">
@@ -122,6 +150,7 @@ const NewBlogs = ({ close }) => {
                 name="heading"
                 onChange={handleChange}
                 placeholder="Blog heading"
+                defaultValue={details ? details.heading : null}
                 required
               ></input>
             </div>
@@ -133,6 +162,7 @@ const NewBlogs = ({ close }) => {
                 id="tourTitle"
                 name="title"
                 onChange={handleChange}
+                defaultValue={details ? details.title : null}
                 placeholder="Blog title"
                 required
               ></input>
@@ -145,6 +175,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para1"
                 onChange={handleChange}
+                defaultValue={details ? details.para1 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -157,6 +188,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para2"
                 onChange={handleChange}
+                defaultValue={details ? details.para2 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -169,6 +201,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para3"
                 onChange={handleChange}
+                defaultValue={details ? details.para3 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -181,6 +214,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para4"
                 onChange={handleChange}
+                defaultValue={details ? details.para4 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -193,6 +227,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para5"
                 onChange={handleChange}
+                defaultValue={details ? details.para5 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -205,6 +240,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para6"
                 onChange={handleChange}
+                defaultValue={details ? details.para6 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -217,6 +253,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para7"
                 onChange={handleChange}
+                defaultValue={details ? details.para7 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -229,6 +266,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para8"
                 onChange={handleChange}
+                defaultValue={details ? details.para8 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -241,6 +279,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para9"
                 onChange={handleChange}
+                defaultValue={details ? details.para9 : null}
                 placeholder=""
                 required
               ></textarea>
@@ -253,6 +292,7 @@ const NewBlogs = ({ close }) => {
                 id="overviewDesc"
                 name="para10"
                 onChange={handleChange}
+                defaultValue={details ? details.para10 : null}
                 placeholder=""
                 required
               ></textarea>

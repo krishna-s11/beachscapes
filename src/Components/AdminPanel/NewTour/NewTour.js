@@ -11,13 +11,14 @@ import {
   doc,
   deleteDoc,
   setDoc,
+  getDocs,
   addDoc,
   updateDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import Loader from "../../Loader/Loader";
 
-const NewTour = ({ close, id }) => {
+const NewTour = ({ close, id, resetId }) => {
   const [display2, setDisplay2] = useState(0);
   const [display3, setDisplay3] = useState(0);
   const [display4, setDisplay4] = useState(0);
@@ -87,6 +88,9 @@ const NewTour = ({ close, id }) => {
 
   const [loading, setLoading] = useState(false);
   const [tour, setTour] = useState();
+  const [destinations, setDestinations] = useState();
+  const [destinations2, setDestinations2] = useState();
+  const [totalDestinations, setTotalDestinations] = useState([]);
 
   const defaultBtn = () => {
     const defaultBtn = document.querySelector("#choose-input");
@@ -252,76 +256,36 @@ const NewTour = ({ close, id }) => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setTour(docSnap.data());
+          setDetails(docSnap.data());
         } else {
           console.log("No such document!");
         }
       };
       getTour();
-      setDetails({
-        ...details,
-        title: tour?.title,
-        destination: tour?.destination,
-        dayTemp: tour?.dayTemp,
-        nightTemp: tour?.nightTemp,
-        highlightTitle: tour?.hightlights.title,
-        pt1: tour?.hightlights.data[0],
-        pt2: tour?.hightlights.data[1],
-        pt3: tour?.hightlights.data[2],
-        pt4: tour?.hightlights.data[3],
-        pt5: tour?.hightlights.data[4],
-        overviewTitle: tour?.overview.title,
-        overviewLocation: tour?.overview.location,
-        checkIn: tour?.overview.checkIn,
-        checkOut: tour?.overview.checkOut,
-        overviewDesc: tour?.overview.desc,
-        itineraryTitle1: tour?.itinerary[0].title,
-        itinerarySub1: tour?.itinerary[0].subtitle,
-        itineraryLocation1: tour?.itinerary[0].location,
-        itineraryDetails1: tour?.itinerary[0].details,
-        itineraryTitle2: tour?.itinerary[1].title,
-        itinerarySub2: tour?.itinerary[1].subtitle,
-        itineraryLocation2: tour?.itinerary[1].location,
-        itineraryDetails2: tour?.itinerary[1].details,
-        itineraryTitle3: tour?.itinerary[2].title,
-        itinerarySub3: tour?.itinerary[2].subtitle,
-        itineraryLocation3: tour?.itinerary[2].location,
-        itineraryDetails3: tour?.itinerary[2].details,
-        itineraryTitle4: tour?.itinerary[3].title,
-        itinerarySub4: tour?.itinerary[3].subtitle,
-        itineraryLocation4: tour?.itinerary[3].location,
-        itineraryDetails4: tour?.itinerary[3].details,
-        itineraryTitle5: tour?.itinerary[4].title,
-        itinerarySub5: tour?.itinerary[4].subtitle,
-        itineraryLocation5: tour?.itinerary[4].location,
-        itineraryDetails5: tour?.itinerary[4].details,
-        discountPrice: tour?.price.discountPrice,
-        actualPrice: tour?.price.actualPrice,
-        offPercentage: tour?.price.offPercentage,
-        testimonies: tour?.testimonies,
-        service1: tour?.services[0].service,
-        charge1: tour?.services[0].charge,
-        service2: tour?.services[1].service,
-        charge2: tour?.services[1].charge,
-        service3: tour?.services[2].service,
-        charge3: tour?.services[2].charge,
-        service4: tour?.services[3].service,
-        charge4: tour?.services[3].charge,
-        service5: tour?.services[4].service,
-        charge5: tour?.services[4].charge,
-        service6: tour?.services[5].service,
-        charge6: tour?.services[5].charge,
-        service7: tour?.services[6].service,
-        charge7: tour?.services[6].charge,
-        service8: tour?.services[7].service,
-        charge8: tour?.services[7].charge,
-        service9: tour?.services[8].service,
-        charge9: tour?.services[8].charge,
-        service10: tour?.services[9].service,
-        charge10: tour?.services[9].charge,
-      });
-      console.log(details);
     }
+    const getDestinations = async () => {
+      const querySnapshot = await getDocs(collection(db, "destinations"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+      setDestinations(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+      );
+    };
+    getDestinations();
+    const getDestinations2 = async () => {
+      const querySnapshot = await getDocs(collection(db, "destinations2"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+      setDestinations2(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+      );
+    };
+    getDestinations2();
   }, []);
+
+  console.log();
 
   return (
     <div className="new-tour">
@@ -332,6 +296,7 @@ const NewTour = ({ close, id }) => {
             id="btn-close"
             onClick={() => {
               close();
+              resetId();
             }}
           />
         </div>
@@ -387,7 +352,23 @@ const NewTour = ({ close, id }) => {
             </div>
             <div className="add-group">
               <p style={{ fontWeight: "600" }}>Destination:</p>
-              <input
+              <select name="cars" id="cars">
+                {destinations?.map((destination) => {
+                  return (
+                    <option value={destination.data.destinations}>
+                      {destination.data.destinations}
+                    </option>
+                  );
+                })}
+                {destinations2?.map((destination) => {
+                  return (
+                    <option value={destination.data.destinations}>
+                      {destination.data.destinations}
+                    </option>
+                  );
+                })}
+              </select>
+              {/* <input
                 type="text"
                 class="form__input add-input"
                 id="destination"
@@ -396,7 +377,7 @@ const NewTour = ({ close, id }) => {
                 placeholder="Tour's destination"
                 defaultValue={tour ? tour.destination : null}
                 required
-              ></input>
+              ></input> */}
             </div>
             <div className="add-group sub-category">
               <div>

@@ -171,3 +171,10 @@
   margin: 30px auto;
   color: #fff;
 }
+.add-group select {
+  width: 350px;
+  padding: 10px 20px;
+  border: 1px solid #999;
+  border-radius: 2px;
+  font-size: 16px;
+}

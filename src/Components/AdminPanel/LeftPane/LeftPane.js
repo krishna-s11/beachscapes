@@ -44,6 +44,18 @@ const LeftPane = () => {
         <li
           onClick={() => {
             setFilter(2);
+            navigate("/admin/dashboard/destinations_t2");
+          }}
+          style={{ backgroundColor: filter === 1 ? "#2e538a" : null }}
+        >
+          <span>
+            <img alt="" src={destination}></img>
+          </span>
+          Destinations T-2
+        </li>
+        <li
+          onClick={() => {
+            setFilter(3);
             navigate("/admin/dashboard/tours");
           }}
           style={{ backgroundColor: filter === 2 ? "#2e538a" : null }}
@@ -55,7 +67,7 @@ const LeftPane = () => {
         </li>
         <li
           onClick={() => {
-            setFilter(3);
+            setFilter(4);
             navigate("/admin/dashboard/leads");
           }}
           style={{ backgroundColor: filter === 3 ? "#2e538a" : null }}
@@ -67,7 +79,7 @@ const LeftPane = () => {
         </li>
         <li
           onClick={() => {
-            setFilter(4);
+            setFilter(5);
             navigate("/admin/dashboard/blogs");
           }}
           style={{ backgroundColor: filter === 4 ? "#2e538a" : null }}

@@ -18,6 +18,15 @@ const Nav = (props) => {
     document.getElementById("menu").classList.toggle("menu-open");
   };
 
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+      /* you can also use 'auto' behaviour 
+         in place of 'smooth' */
+    });
+  };
+
   return (
     <div className="navbar" style={{ background: props.colour }}>
       {popup ? (
@@ -49,7 +58,12 @@ const Nav = (props) => {
         <img src={ham} alt="menu" id="hamburger" onClick={handleHam} />
         <div className="menu" id="menu">
           <ul>
-            <li>
+            <li
+              onClick={() => {
+                navigate("/");
+                handleHam();
+              }}
+            >
               <span>
                 <img src={aboutUs} alt="about beachscapes" id="about"></img>
               </span>
@@ -79,7 +93,8 @@ const Nav = (props) => {
             </li>
             <li
               onClick={() => {
-                setPopup(true);
+                // setPopup(true);
+                scrollToBottom();
                 handleHam();
               }}
             >

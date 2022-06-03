@@ -17,6 +17,7 @@ import TourCardT2 from "../TourCardT2/TourCardT2";
 
 const Carousel = () => {
   const [destinations, setDestinations] = useState([]);
+  const [destinations2, setDestinations2] = useState([]);
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [carouselTitle, setCarouselTitle] = useState();
@@ -107,6 +108,16 @@ const Carousel = () => {
       );
     };
     getDestinations();
+    const getDestinations2 = async () => {
+      const querySnapshot = await getDocs(collection(db, "destinations2"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+      setDestinations2(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+      );
+    };
+    getDestinations2();
     const getBanner1 = async () => {
       const docRef = doc(db, "homepage", "banner1");
       const docSnap = await getDoc(docRef);
@@ -168,14 +179,15 @@ const Carousel = () => {
           </span>
         </h1>
         <Slider {...settings}>
-          {/* <TourCardT2 />
-          <TourCardT2 />
-          <TourCardT2 />
-          <TourCardT2 />
-          <TourCardT2 />
-          <TourCardT2 />
-          <TourCardT2 /> */}
-          <CarouselCard img={bali} text="bali" />
+          {destinations2 &&
+            destinations2.map((destination) => {
+              return (
+                <CarouselCard
+                  img={destination.data.downloadUrl}
+                  text={destination.data.destinations}
+                />
+              );
+            })}
           <CarouselCard img={goa} text="goa" />
           <CarouselCard img={maldives} text="maldives" />
           <CarouselCard img={vergin} text="vergin islands" />

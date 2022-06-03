@@ -11,11 +11,13 @@ import Blog from "./Pages/Blog/Blog";
 import Dashboard from "./Pages/AdminPanel/Dashboard/Dashboard";
 import { BrowserRouter as Router } from "react-router-dom";
 import Destinations from "./Components/AdminPanel/Destinations/Destinations";
+import Destinations2 from "./Components/AdminPanel/Destinations2/Destinations2";
 import Lead from "./Components/AdminPanel/Leads/Lead";
 import AdminBlogs from "./Components/AdminPanel/Blogs/Blogs";
 import Homepage from "./Components/AdminPanel/Homepage/Homepage";
 import { useEffect, useState } from "react";
 import Contact from "./Pages/Contact/Contact";
+import Footer from "./Components/Footer/Footer";
 
 // import Product from "./Pages/Product/Product";
 
@@ -125,6 +127,14 @@ function App() {
             }
           />
           <Route
+            path="destinations_t2"
+            element={
+              <>
+                <Destinations2 />
+              </>
+            }
+          />
+          <Route
             path="leads"
             element={
               <>
@@ -150,7 +160,7 @@ function App() {
           />
         </Route>
       </Routes>
-      {/* <Footer /> */}
+      {location.pathname.includes("admin") ? null : <Footer />}
     </div>
   );
 }

@@ -36,6 +36,9 @@ const Tours = () => {
             close={() => {
               setAdd(false);
             }}
+            resetId={() => {
+              setId(null);
+            }}
           />
         ) : null}
         <div className="tours-top">
