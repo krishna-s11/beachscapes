@@ -28,7 +28,10 @@ const Carousel = () => {
       <img
         src={left}
         class={className}
-        style={{ ...style, transform: "scale(2) translateX(-20px)" }}
+        style={{
+          ...style,
+          transform: "scale(2) translateX(-20px)",
+        }}
         onClick={onClick}
         alt="left"
       />
@@ -61,27 +64,39 @@ const Carousel = () => {
     nextArrow: <SampleNextArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1478,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 4,
+          slidesToScroll: 2,
           infinite: true,
           dots: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 1230,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 4,
           slidesToScroll: 2,
-          initialSlide: 2,
+          infinite: true,
+          dots: true,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 854,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 580,
+        settings: {
+          slidesToShow: 2,
           slidesToScroll: 1,
+          infinite: true,
+          dots: true,
         },
       },
     ],
@@ -141,7 +156,7 @@ const Carousel = () => {
         <h1 className="carousel-title">
           Find the perfect escape
           <span>
-            <img src={stroke} alt="stroke"></img>
+            <img src={stroke} alt="stroke" className="stroke"></img>
           </span>
         </h1>
       </div>
@@ -172,10 +187,10 @@ const Carousel = () => {
         </Slider>
       </div>
       <div className="carousel-scroll type2">
-        <h1>
+        <h1 className="type2-title">
           {carouselTitle ? carouselTitle.title : ""}
           <span>
-            <img src={stroke} alt="stroke" />
+            <img src={stroke} alt="stroke" className="stroke" />
           </span>
         </h1>
         <Slider {...settings}>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./nav.css";
 import logo from "../../assets/logo.svg";
-import search from "../../assets/search.svg";
 import ham from "../../assets/ham.svg";
 import { useNavigate } from "react-router-dom";
 import ourPackage from "../../assets/ourPackages.svg";
@@ -22,8 +21,6 @@ const Nav = (props) => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: "smooth",
-      /* you can also use 'auto' behaviour 
-         in place of 'smooth' */
     });
   };
 
@@ -43,18 +40,10 @@ const Nav = (props) => {
         onClick={() => {
           navigate("/");
         }}
+        id="nav_logo"
         style={{ cursor: "pointer" }}
       />
       <div className="nav-rt-box">
-        {/* <div className="search-box">
-          <input
-            type="text"
-            name="search"
-            id="input-search"
-            placeholder="search..."
-          />
-          <img src={search} alt="search-box" id="search-icon" />
-        </div> */}
         <img src={ham} alt="menu" id="hamburger" onClick={handleHam} />
         <div className="menu" id="menu">
           <ul>

@@ -17,3 +17,37 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+@media only screen and (max-width: 1230px) {
+  .carousel-card {
+    width: 200px;
+    height: 270px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+  }
+}
+@media only screen and (max-width: 930px) {
+  .carousel-card {
+    width: 180px;
+    height: 230px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+  }
+  .carousel-card h1 {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .carousel-card {
+    width: 150px;
+    height: 200px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+  }
+  .carousel-card h1 {
+    font-size: 18px;
+  }
+}
