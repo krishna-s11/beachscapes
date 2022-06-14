@@ -30,3 +30,14 @@
 .tours-title span {
   color: #ff5d2c;
 }
+
+@media only screen and (max-width: 1200px) {
+  .tours-content {
+    padding: 0 60px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .tours-content {
+    padding: 0 10px;
+  }
+}

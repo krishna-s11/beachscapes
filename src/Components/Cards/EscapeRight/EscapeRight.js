@@ -15,10 +15,10 @@ const EscapeRight = () => {
         </p>
         <div className="link-holder">
           <a>
-            Go to Articles
-            <span>
+            Go to Articles -&gt;
+            {/* <span>
               <img src={rightArrow} alt="" />
-            </span>
+            </span> */}
           </a>
         </div>
       </div>

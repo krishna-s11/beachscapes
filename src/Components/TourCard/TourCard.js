@@ -33,38 +33,16 @@ const TourCard = ({ image, data }) => {
             <span>₹ </span> {tour.price.discountPrice}
             <span>₹{tour.price.actualPrice}</span>
           </p>
-          <div className="temp-info">
-            {/* <p class="dayTemp">
-              <span>
-                <img src={day} alt="day" />
-              </span>
-              {tour.dayTemp}
-            </p>
-            <p className="nightTemp">
-              <span>
-                <img src={night} alt="night" />
-              </span>
-              {tour.nightTemp}
-            </p> */}
-          </div>
           <h1 className="tour-loc">
             <span>
-              <img src={location} alt="location" />
+              <img src={location} alt="location" id="img-loc" />
             </span>
             {capitalizeFirstLetter(tour.destination)}
           </h1>
         </div>
-        {/* <div className="amenities">
-          <img src={dining} alt="dining" />
-          <img src={liqour} alt="liquor" />
-          <img src={dining} alt="dining" />
-          <img src={liqour} alt="liquor" />
-          <img src={dining} alt="dining" />
-          <img src={liqour} alt="liquor" />
-        </div> */}
       </div>
       <div className="right-section">
-        <img src={ratings} alt="ratings" />
+        <img src={ratings} alt="ratings" id="ratings" />
         <div className="tags-container">
           <div className="tag-flex">
             <div className="tag-flex-1">Beach</div>
