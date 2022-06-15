@@ -365,4 +365,8 @@
   #res-vid {
     padding: 30px 10px;
   }
+  .pd-nw-rt {
+    width: 100%;
+    padding: 0 10px;
+  }
 }
