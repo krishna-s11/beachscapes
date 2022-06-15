@@ -80,6 +80,17 @@ const Product = () => {
     autoplaySpeed: 2000,
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
+    responsive: [
+      {
+        breakpoint: 760,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
   };
 
   if (tour) {
@@ -107,7 +118,13 @@ const Product = () => {
             <div className="cover-container-lt">
               <Slider {...settings}>
                 {tour.imgLink.map((img, key) => {
-                  return <img src={img} alt={`${tour.title}${key}`} />;
+                  return (
+                    <img
+                      src={img}
+                      alt={`${tour.title}${key}`}
+                      id="cover-lt-img"
+                    />
+                  );
                 })}
               </Slider>
             </div>
@@ -123,7 +140,7 @@ const Product = () => {
                   })}
                 </ul>
               </div>
-              <div className="tour-details">
+              <div className="tour-details" id="res-vid">
                 <div className="details-title-holder">
                   <h1>Hotel Videos & Images</h1>
                 </div>
@@ -163,50 +180,6 @@ const Product = () => {
                       ></iframe>
                     </div>
                   </Slider>
-                  {/* <div className="video-container">
-                    <iframe
-                      width="310px"
-                      height="181px"
-                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  <div className="video-container">
-                    <iframe
-                      width="310px"
-                      height="181px"
-                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  <div className="video-container">
-                    <iframe
-                      width="310px"
-                      height="181px"
-                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  <div className="video-container">
-                    <iframe
-                      width="310px"
-                      height="181px"
-                      src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div> */}
                 </div>
               </div>
               {/* <AdditionalVideos /> */}
@@ -271,7 +244,7 @@ const Product = () => {
                   }}
                 >
                   <div className="booking-offer">
-                    {tour.price.offPercentage}% OFF
+                    {tour.price.offPercentage} OFF
                   </div>
                   <div className="price">
                     BOOK <br></br> NOW

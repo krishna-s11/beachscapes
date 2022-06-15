@@ -49,3 +49,12 @@
   width: 40px;
   margin-left: 15px;
 }
+
+@media only screen and (max-width: 400px) {
+  .tour-title-card h1 {
+    font-size: 22px;
+  }
+  #loc {
+    transform: scale(0.8) translateY(-6px);
+  }
+}

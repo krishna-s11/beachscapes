@@ -215,3 +215,154 @@
 .escape-card-content h4:not(:first-child) {
   margin-top: 25px;
 }
+
+@media only screen and (max-width: 1270px) {
+  .pd-lt-content {
+    padding-left: 60px;
+    padding-top: 60px;
+  }
+  .rt-content {
+    width: 100%;
+    padding-top: 60px;
+    padding-left: 10px;
+    padding-right: 60px;
+  }
+}
+@media only screen and (max-width: 1230px) {
+  .pd-nw-lt {
+    width: 50%;
+    padding-left: 30px;
+  }
+  .pd-lt-content {
+    padding-left: 10px;
+    padding-top: 60px;
+  }
+  .rt-content {
+    padding-left: 10px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .product-pg-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+  }
+  .rt-img1 {
+    display: none;
+  }
+  .rt-img2 {
+    display: none;
+  }
+  .pd-nw-lt {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .pd-nw-rt {
+    width: 100%;
+    padding: 0 30px;
+  }
+  .card-price {
+    width: 100%;
+  }
+  .rt-content {
+    width: 100%;
+    padding-top: 60px;
+    padding-left: 10px;
+    padding-right: 0px;
+  }
+  .escape-card {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .card-price {
+    height: 100px;
+    background-color: #fff;
+    padding-left: 20px;
+    font-size: 12px;
+    justify-content: space-between;
+  }
+  #fare-break {
+    font-size: 14px;
+    color: #777;
+    font-weight: 400;
+    text-decoration: underline;
+    position: absolute;
+    bottom: 3px;
+    cursor: pointer;
+  }
+  .book-now {
+    width: 100px;
+    height: 100px;
+    background-color: #17648f;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .booking-offer {
+    width: 100%;
+    height: 30px;
+    background: #ff5d2c;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  .price {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    color: #bbdee9;
+    font-size: 20px;
+  }
+  .card-price h1 strike {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 470px) {
+  .additional-videos-holder {
+    width: 100%;
+    height: 250px;
+    padding-top: 20px;
+  }
+  .video-container {
+    max-width: 250px;
+    height: 181px;
+    margin-left: 20px;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+  }
+  .video-container:not(:first-child) {
+    margin-left: 10px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .video-container {
+    max-width: 280px;
+    height: 181px;
+    margin-left: 20px;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+  }
+  .pd-nw-lt {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #res-vid {
+    padding: 30px 10px;
+  }
+}

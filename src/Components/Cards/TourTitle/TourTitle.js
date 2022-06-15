@@ -17,7 +17,7 @@ const TourTitle = ({ data }) => {
       <h1>{data.title}</h1>
       <div className="tour-title-info">
         <div className="tour-location">
-          <img src={location} alt="location" />
+          <img src={location} alt="location" id="loc" />
           <p>{capitalizeFirstLetter(data.destination)}</p>
         </div>
         {/* <div className="tour-temp-info">

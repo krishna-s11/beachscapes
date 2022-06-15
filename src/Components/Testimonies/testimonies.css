@@ -18,3 +18,9 @@
 .testimonies iframe {
   margin-top: 20px;
 }
+
+@media only screen and (max-width: 600px) {
+  .testimonies {
+    width: 100%;
+  }
+}
