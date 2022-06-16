@@ -74,7 +74,11 @@ const Tours = () => {
                 <tr>
                   <td>{i + 1}</td>
                   <td>
-                    <img alt="" className="product-preview"></img>
+                    <img
+                      alt=""
+                      src={tour.data.imgLink[0]}
+                      className="product-preview"
+                    ></img>
                   </td>
                   <td>{tour.data.title}</td>
                   <td>{tour.data.destination}</td>

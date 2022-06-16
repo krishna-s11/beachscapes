@@ -20,7 +20,7 @@ const TourCard = ({ image, data }) => {
 
   return (
     <div className="tour-card">
-      <img src={maldives} alt="maldives" />
+      <img src={tour.imgLink[0]} alt="maldives" />
       <div className="mid-section">
         <h1>{tour.title}</h1>
         <ul>

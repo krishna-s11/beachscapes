@@ -38,9 +38,12 @@
   margin-top: 20px;
   border-radius: 18px;
 }
-.blog-details-lt p {
-  margin-top: 50px;
+.blog-details-lt p:not(:first-child) {
   font-weight: 400;
+  margin-bottom: 30px;
+}
+#first_para {
+  margin-top: 50px;
 }
 .blog-details-rt {
   width: 30%;

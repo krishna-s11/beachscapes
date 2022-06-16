@@ -68,7 +68,11 @@ const Blogs = () => {
               <tr>
                 <td>{i + 1}</td>
                 <td>
-                  <img alt="" className="product-preview"></img>
+                  <img
+                    alt=""
+                    src={blog.data.imgLink[0]}
+                    className="product-preview"
+                  ></img>
                 </td>
                 <td>{blog.data.heading}</td>
                 <td>{blog.data.title}</td>

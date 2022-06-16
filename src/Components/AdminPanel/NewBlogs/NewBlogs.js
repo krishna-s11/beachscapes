@@ -12,6 +12,16 @@ const NewBlogs = ({ close, id }) => {
   const [details, setDetails] = useState({
     heading: "",
     title: "",
+    paraTitle1: "",
+    paraTitle2: "",
+    paraTitle3: "",
+    paraTitle4: "",
+    paraTitle5: "",
+    paraTitle6: "",
+    paraTitle7: "",
+    paraTitle8: "",
+    paraTitle9: "",
+    paraTitle10: "",
     para1: "",
     para2: "",
     para3: "",
@@ -168,7 +178,19 @@ const NewBlogs = ({ close, id }) => {
               ></input>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 1:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 1 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle1"
+                name="paraTitle1"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle1 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -176,12 +198,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para1"
                 onChange={handleChange}
                 defaultValue={details ? details.para1 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 2:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 2 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle2"
+                name="paraTitle2"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle2 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -189,12 +223,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para2"
                 onChange={handleChange}
                 defaultValue={details ? details.para2 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 3:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 3 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle3"
+                name="paraTitle3"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle3 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -202,12 +248,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para3"
                 onChange={handleChange}
                 defaultValue={details ? details.para3 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 4:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 4 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle4"
+                name="paraTitle4"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle4 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -215,12 +273,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para4"
                 onChange={handleChange}
                 defaultValue={details ? details.para4 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 5:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 5 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle5"
+                name="paraTitle5"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle5 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -228,12 +298,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para5"
                 onChange={handleChange}
                 defaultValue={details ? details.para5 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 6:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 6 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle6"
+                name="paraTitle6"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle6 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -241,12 +323,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para6"
                 onChange={handleChange}
                 defaultValue={details ? details.para6 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 7:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 7 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle7"
+                name="paraTitle7"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle7 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -254,12 +348,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para7"
                 onChange={handleChange}
                 defaultValue={details ? details.para7 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 8:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 8 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle8"
+                name="paraTitle8"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle1 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -267,12 +373,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para8"
                 onChange={handleChange}
                 defaultValue={details ? details.para8 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 9:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 9 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle9"
+                name="paraTitle9"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle9 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -280,12 +398,24 @@ const NewBlogs = ({ close, id }) => {
                 name="para9"
                 onChange={handleChange}
                 defaultValue={details ? details.para9 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
             <div className="add-group">
-              <p style={{ fontWeight: "600" }}>Paragraph 10:</p>
+              <p style={{ fontWeight: "600" }}>Paragraph 10 :</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="paraTitle10"
+                name="paraTitle10"
+                onChange={handleChange}
+                defaultValue={details ? details.paraTitle10 : null}
+                placeholder="title"
+                required
+              ></input>
+            </div>
+            <div className="add-group">
               <textarea
                 type="text"
                 class="form__input add-input"
@@ -293,7 +423,7 @@ const NewBlogs = ({ close, id }) => {
                 name="para10"
                 onChange={handleChange}
                 defaultValue={details ? details.para10 : null}
-                placeholder=""
+                placeholder="start writing..."
                 required
               ></textarea>
             </div>
@@ -305,7 +435,13 @@ const NewBlogs = ({ close, id }) => {
               }}
             >
               <button className="btn btn-add-tour" onClick={handleSubmit}>
-                {loading ? <Loader small /> : "Create Blog"}
+                {loading ? (
+                  <Loader small />
+                ) : id ? (
+                  "Update Blog"
+                ) : (
+                  "Create Blog"
+                )}
               </button>
             </div>
           </div>

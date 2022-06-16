@@ -4,7 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import Loader from "../Loader/Loader";
 
-const Enquire = () => {
+const Enquire = ({ title }) => {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -31,7 +31,7 @@ const Enquire = () => {
 
   return (
     <div className="enquire-card">
-      <h1>Paradise Island Resort Maldives: Get 29% off</h1>
+      <h1>{title ? title : "Get a call from us :"}</h1>
       <div className="form-group">
         <input
           type="text"

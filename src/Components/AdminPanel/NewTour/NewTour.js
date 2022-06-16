@@ -64,6 +64,12 @@ const NewTour = ({ close, id, resetId }) => {
     actualPrice: "",
     offPercentage: "",
     testimonies: "",
+    vidLink1: "",
+    vidLink2: "",
+    vidLink3: "",
+    vidLink4: "",
+    vidLink5: "",
+    enqTitle: "",
     service1: "",
     charge1: "",
     service2: "",
@@ -166,6 +172,14 @@ const NewTour = ({ close, id, resetId }) => {
           details: details.itineraryDetails5,
         },
       ],
+      videoLinks: [
+        details.vidLink1,
+        details.vidLink2,
+        details.vidLink3,
+        details.vidLink4,
+        details.vidLink5,
+      ],
+      enquiryTitle: details.enqTitle,
       services: [
         {
           service: details.service1,
@@ -209,6 +223,7 @@ const NewTour = ({ close, id, resetId }) => {
         },
       ],
     };
+    console.log(formData);
     if (id) {
       let imgLink = [];
       imgLink = await Promise.all(
@@ -224,7 +239,11 @@ const NewTour = ({ close, id, resetId }) => {
         })
       );
       const docRef = doc(db, "tours", id);
-      await updateDoc(docRef, { ...formData, imgLink });
+      if (imgLink.length > 0) {
+        await updateDoc(docRef, { ...formData, imgLink });
+      } else {
+        await updateDoc(docRef, { ...formData });
+      }
     } else {
       let imgLink = [];
       const randomId = uuidv4();
@@ -254,7 +273,76 @@ const NewTour = ({ close, id, resetId }) => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setTour(docSnap.data());
-          setDetails(docSnap.data());
+          const data = docSnap.data();
+          console.log(data);
+          setDetails({
+            ...details,
+            title: data.title,
+            destination: data.destination,
+            dayTemp: data.dayTemp,
+            nightTemp: data.nightTemp,
+            highlightTitle: data.hightlights.title,
+            pt1: data.hightlights.data[0],
+            pt2: data.hightlights.data[1],
+            pt3: data.hightlights.data[2],
+            pt4: data.hightlights.data[3],
+            pt5: data.hightlights.data[4],
+            overviewTitle: data.overview.title,
+            overviewLocation: data.overview.location,
+            checkIn: data.overview.checkIn,
+            checkOut: data.overview.checkOut,
+            overviewDesc: data.overview.desc,
+            itineraryTitle1: data.itinerary[0].title,
+            itinerarySub1: data.itinerary[0].subtitle,
+            itineraryLocation1: data.itinerary[0].location,
+            itineraryDetails1: data.itinerary[0].details,
+            itineraryTitle2: data.itinerary[1].title,
+            itinerarySub2: data.itinerary[1].subtitle,
+            itineraryLocation2: data.itinerary[1].location,
+            itineraryDetails2: data.itinerary[1].details,
+            itineraryTitle3: data.itinerary[2].title,
+            itinerarySub3: data.itinerary[2].subtitle,
+            itineraryLocation3: data.itinerary[2].location,
+            itineraryDetails3: data.itinerary[2].details,
+            itineraryTitle4: data.itinerary[3].title,
+            itinerarySub4: data.itinerary[3].subtitle,
+            itineraryLocation4: data.itinerary[3].location,
+            itineraryDetails4: data.itinerary[3].details,
+            itineraryTitle5: data.itinerary[4].title,
+            itinerarySub5: data.itinerary[4].subtitle,
+            itineraryLocation5: data.itinerary[4].location,
+            itineraryDetails5: data.itinerary[4].details,
+            discountPrice: data.price.discountPrice,
+            actualPrice: data.price.actualPrice,
+            offPercentage: data.price.offPercentage,
+            testimonies: data.testimonies,
+            vidLink1: data.videoLinks[0],
+            vidLink2: data.videoLinks[1],
+            vidLink3: data.videoLinks[2],
+            vidLink4: data.videoLinks[3],
+            vidLink5: data.videoLinks[4],
+            enqTitle: data.enquiryTitle,
+            service1: data.services[0].service,
+            charge1: data.services[0].charge,
+            service2: data.services[1].service,
+            charge2: data.services[1].charge,
+            service3: data.services[2].service,
+            charge3: data.services[2].charge,
+            service4: data.services[3].service,
+            charge4: data.services[3].charge,
+            service5: data.services[4].service,
+            charge5: data.services[4].charge,
+            service6: data.services[5].service,
+            charge6: data.services[5].charge,
+            service7: data.services[6].service,
+            charge7: data.services[6].charge,
+            service8: data.services[7].service,
+            charge8: data.services[7].charge,
+            service9: data.services[8].service,
+            charge9: data.services[8].charge,
+            service10: data.services[9].service,
+            charge10: data.services[9].charge,
+          });
         } else {
           console.log("No such document!");
         }
@@ -263,9 +351,6 @@ const NewTour = ({ close, id, resetId }) => {
     }
     const getDestinations = async () => {
       const querySnapshot = await getDocs(collection(db, "destinations"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });
       setDestinations(
         querySnapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
       );
@@ -273,9 +358,6 @@ const NewTour = ({ close, id, resetId }) => {
     getDestinations();
     const getDestinations2 = async () => {
       const querySnapshot = await getDocs(collection(db, "destinations2"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });
       setDestinations2(
         querySnapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
       );
@@ -283,7 +365,7 @@ const NewTour = ({ close, id, resetId }) => {
     getDestinations2();
   }, []);
 
-  console.log();
+  console.log(details);
 
   return (
     <div className="new-tour">
@@ -370,16 +452,6 @@ const NewTour = ({ close, id, resetId }) => {
                   );
                 })}
               </select>
-              {/* <input
-                type="text"
-                class="form__input add-input"
-                id="destination"
-                name="destination"
-                onChange={handleChange}
-                placeholder="Tour's destination"
-                defaultValue={tour ? tour.destination : null}
-                required
-              ></input> */}
             </div>
             <div className="add-group sub-category">
               <div>
@@ -943,6 +1015,105 @@ const NewTour = ({ close, id, resetId }) => {
                 ></input>
               </div>
             </div>
+            <div className="add-group">
+              <p style={{ fontWeight: "600" }}>Video Links:</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="vidLink1"
+                name="vidLink1"
+                onChange={handleChange}
+                placeholder="Video Link 1"
+                defaultValue={tour ? tour.videoLinks[0] : null}
+                required
+              ></input>
+            </div>
+            <div className="add-group">
+              <input
+                type="text"
+                class="form__input add-input"
+                id="vidLink2"
+                name="vidLink2"
+                onChange={handleChange}
+                placeholder="Video Link 2"
+                defaultValue={tour ? tour.videoLinks[1] : null}
+                required
+              ></input>
+            </div>
+            <div className="add-group">
+              <input
+                type="text"
+                class="form__input add-input"
+                id="vidLink3"
+                name="vidLink3"
+                onChange={handleChange}
+                placeholder="Video Link 3"
+                defaultValue={tour ? tour.videoLinks[2] : null}
+                required
+              ></input>
+            </div>
+            <div className="add-group">
+              <input
+                type="text"
+                class="form__input add-input"
+                id="vidLink4"
+                name="vidLink4"
+                onChange={handleChange}
+                placeholder="Video Link 4"
+                defaultValue={tour ? tour.videoLinks[3] : null}
+                required
+              ></input>
+            </div>
+            <div className="add-group">
+              <input
+                type="text"
+                class="form__input add-input"
+                id="vidLink5"
+                name="vidLink5"
+                onChange={handleChange}
+                placeholder="Video Link 5"
+                defaultValue={tour ? tour.videoLinks[4] : null}
+                required
+              ></input>
+            </div>
+            <div className="add-group">
+              <p style={{ fontWeight: "600" }}>Enquiry Card:</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="enqTitle"
+                name="enqTitle"
+                onChange={handleChange}
+                placeholder="Title for Enquiry Card"
+                defaultValue={tour ? tour.enquiryTitle : null}
+                required
+              ></input>
+            </div>
+            {/* <div className="add-group">
+              <p style={{ fontWeight: "600" }}>Why Escape With Us:</p>
+              <input
+                type="text"
+                class="form__input add-input"
+                id="whyTitle1"
+                name="whyTitle1"
+                onChange={handleChange}
+                placeholder="Point 1 Title"
+                // defaultValue={tour ? tour.enquiryTitle : null}
+                required
+              ></input>
+            </div>
+            <div className="add-group">
+              <input
+                type="text"
+                class="form__input add-input"
+                id="whyPt1"
+                name="whyPt1"
+                onChange={handleChange}
+                placeholder="Point 1"
+                defaultValue={tour ? tour.videoLinks[3] : null}
+                required
+              ></input>
+            </div> */}
             <div className="services">
               <div className="add-group service-input sub-category">
                 <div>
@@ -1255,7 +1426,7 @@ const NewTour = ({ close, id, resetId }) => {
               }}
             >
               <button className="btn btn-add-tour" onClick={handleSubmit}>
-                {loading ? <Loader small /> : "Add Tour"}
+                {loading ? <Loader small /> : id ? "Update Tour" : "Add Tour"}
               </button>
             </div>
           </div>

@@ -146,43 +146,27 @@ const Product = () => {
                 </div>
                 <div className="additional-videos-holder">
                   <Slider {...settings2}>
-                    <div className="video-container">
-                      <iframe
-                        width="310px"
-                        height="181px"
-                        src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
-                    <div className="video-container">
-                      <iframe
-                        width="310px"
-                        height="181px"
-                        src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
-                    <div className="video-container">
-                      <iframe
-                        width="310px"
-                        height="181px"
-                        src="https://www.youtube.com/embed/XLlP-_Abd5k"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
+                    {tour.videoLinks.map((link) => {
+                      if (link.length > 0) {
+                        return (
+                          <div className="video-container">
+                            <iframe
+                              width="310px"
+                              height="181px"
+                              src={link}
+                              title="YouTube video player"
+                              frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                   </Slider>
                 </div>
               </div>
-              {/* <AdditionalVideos /> */}
               <div className="tour-details">
                 <div className="details-title-holder">
                   <h1>{tour.overview.title}</h1>
@@ -252,7 +236,7 @@ const Product = () => {
                 </div>
               </div>
               <Testimonies link={tour.testimonies} />
-              <Enquire />
+              <Enquire title={tour.enquiryTitle} />
               <div className="escape-card">
                 <div className="escape-card-title">
                   <p>Why Escape With Us?</p>
