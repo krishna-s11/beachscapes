@@ -209,46 +209,43 @@ const NewTour = ({ close, id, resetId }) => {
         },
       ],
     };
-    console.log(formData);
-    // if (id) {
-    //   let imgLink = [];
-    //   imgLink = await Promise.all(
-    //     images?.map(async (image, key) => {
-    //       const storageRef = ref(storage, `tours/${id}/${key}`);
-    //       await uploadBytes(storageRef, image).then((snapshot) => {
-    //         console.log("uploaded");
-    //       });
-    //       const downloadUrl = await getDownloadURL(
-    //         ref(storage, `tours/${id}/${key}`)
-    //       );
-    //       return downloadUrl;
-    //     })
-    //   );
-    //   const docRef = doc(db, "tours", id);
-    //   await updateDoc(docRef, { ...formData, imgLink });
-    // } else {
-    //   let imgLink = [];
-    //   const randomId = uuidv4();
-    //   imgLink = await Promise.all(
-    //     images.map(async (image, key) => {
-    //       const storageRef = ref(storage, `tours/${randomId}/${key}`);
-    //       await uploadBytes(storageRef, image).then((snapshot) => {
-    //         console.log("uploaded");
-    //       });
-    //       const downloadUrl = await getDownloadURL(
-    //         ref(storage, `tours/${randomId}/${key}`)
-    //       );
-    //       return downloadUrl;
-    //     })
-    //   );
-    //   await setDoc(doc(db, "tours", randomId), { ...formData, imgLink });
-    // }
+    if (id) {
+      let imgLink = [];
+      imgLink = await Promise.all(
+        images?.map(async (image, key) => {
+          const storageRef = ref(storage, `tours/${id}/${key}`);
+          await uploadBytes(storageRef, image).then((snapshot) => {
+            console.log("uploaded");
+          });
+          const downloadUrl = await getDownloadURL(
+            ref(storage, `tours/${id}/${key}`)
+          );
+          return downloadUrl;
+        })
+      );
+      const docRef = doc(db, "tours", id);
+      await updateDoc(docRef, { ...formData, imgLink });
+    } else {
+      let imgLink = [];
+      const randomId = uuidv4();
+      imgLink = await Promise.all(
+        images.map(async (image, key) => {
+          const storageRef = ref(storage, `tours/${randomId}/${key}`);
+          await uploadBytes(storageRef, image).then((snapshot) => {
+            console.log("uploaded");
+          });
+          const downloadUrl = await getDownloadURL(
+            ref(storage, `tours/${randomId}/${key}`)
+          );
+          return downloadUrl;
+        })
+      );
+      await setDoc(doc(db, "tours", randomId), { ...formData, imgLink });
+    }
     setLoading(false);
-    // close();
-    // window.location.reload();
+    close();
+    window.location.reload();
   };
-
-  console.log(details);
 
   useEffect(() => {
     if (id) {
