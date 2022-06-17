@@ -15,13 +15,33 @@ const Footer = () => {
         </div>
         <h2 className="logo-title">Beachscapes</h2>
         <p>
-          Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016
+          4th Floor, Plot No. 94 Dwarka Sec-13, Opposite Metro Station Near
+          Radisson Blue, New Delhi 110078
         </p>
-        <p id="footer-tel">Contact: +91-9990002234 </p>
+        <p id="footer-tel">Contact: +91-8802442789 </p>
         <div className="social-links">
-          <BsInstagram id="insta-ico" className="social-link" />
-          <FiTwitter className="social-link" />
-          <BsFacebook className="social-link" />
+          <a
+            href="https://www.instagram.com/beachscapes.travel/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <BsInstagram id="insta-ico" className="social-link" />
+          </a>
+          <FiTwitter
+            className="social-link"
+            onClick={() => {
+              window.open("https://twitter.com/Beachscapes1", "_blank");
+            }}
+          />
+          <BsFacebook
+            className="social-link"
+            onClick={() => {
+              window.open(
+                "https://www.facebook.com/Beachscapes-103133545763200",
+                "_blank"
+              );
+            }}
+          />
         </div>
       </div>
     </div>

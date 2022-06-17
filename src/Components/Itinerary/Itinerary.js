@@ -13,7 +13,7 @@ const Itinerary = ({ data }) => {
       <div className="details-title-holder">
         <h1>Itinerary</h1>
       </div>
-      {data.itinerary.map((itinerary, key) => {
+      {data.itineraryFields.map((itinerary, key) => {
         return (
           <>
             {itinerary.title !== "" ? (
@@ -26,7 +26,7 @@ const Itinerary = ({ data }) => {
                 >
                   <div className="it-ct-l">
                     <div className="capsule">Day {key + 1}</div>
-                    <p>{itinerary.title}</p>
+                    <p>{itinerary.itineraryTitle}</p>
                   </div>
                   <img src={down_arrow}></img>
                 </div>
@@ -35,13 +35,13 @@ const Itinerary = ({ data }) => {
                   style={!disp ? { display: "none" } : null}
                 >
                   <p>
-                    <em>{itinerary.subtitle}</em>
+                    <em>{itinerary.itinerarySubtitle}</em>
                     <span>
                       <img src={location} alt="" />
                     </span>
-                    {itinerary.location}
+                    {itinerary.itineraryLocation}
                   </p>
-                  <p>{itinerary.details}</p>
+                  <p>{itinerary.itineraryDetails}</p>
                   {/* <div className="itinerary-img-container">
             <img src={image1} alt="" />
             <img src={image2} alt="" />

@@ -3,6 +3,7 @@ import "./newTour.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlineMinusCircle } from "react-icons/ai";
 import { db, storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
@@ -23,6 +24,7 @@ const NewTour = ({ close, id, resetId }) => {
   const [display3, setDisplay3] = useState(0);
   const [display4, setDisplay4] = useState(0);
   const [display5, setDisplay5] = useState(0);
+  const [display6, setDisplay6] = useState(0);
   const [step, setStep] = useState(1);
   const [details, setDetails] = useState({
     title: "",
@@ -60,6 +62,10 @@ const NewTour = ({ close, id, resetId }) => {
     itinerarySub5: "",
     itineraryLocation5: "",
     itineraryDetails5: "",
+    itineraryTitle6: "",
+    itinerarySub6: "",
+    itineraryLocation6: "",
+    itineraryDetails6: "",
     discountPrice: "",
     actualPrice: "",
     offPercentage: "",
@@ -92,11 +98,19 @@ const NewTour = ({ close, id, resetId }) => {
     charge10: "",
   });
 
+  const [itineraryFields, setItineraryFields] = useState([
+    {
+      itineraryTitle: "",
+      itinerarySubtitle: "",
+      itineraryLocation: "",
+      itineraryDetails: "",
+    },
+  ]);
+
   const [loading, setLoading] = useState(false);
   const [tour, setTour] = useState();
   const [destinations, setDestinations] = useState();
   const [destinations2, setDestinations2] = useState();
-  const [totalDestinations, setTotalDestinations] = useState([]);
 
   const defaultBtn = () => {
     const defaultBtn = document.querySelector("#choose-input");
@@ -116,6 +130,32 @@ const NewTour = ({ close, id, resetId }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleChangeItinerary = (index, event) => {
+    const values = [...itineraryFields];
+    values[index][event.target.name] = event.target.value;
+    setItineraryFields(values);
+  };
+  console.log(itineraryFields);
+
+  const handleAddEvent = () => {
+    setItineraryFields([
+      ...itineraryFields,
+      {
+        itineraryTitle: "",
+        itinerarySubtitle: "",
+        itineraryLocation: "",
+        itineraryDetails: "",
+      },
+    ]);
+  };
+
+  const handleRemoveEvent = (index) => {
+    const values = [...itineraryFields];
+    values.splice(index, 1);
+    setItineraryFields(values);
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     const formData = {
@@ -140,38 +180,44 @@ const NewTour = ({ close, id, resetId }) => {
         actualPrice: details.actualPrice,
         offPercentage: details.offPercentage,
       },
-      itinerary: [
-        {
-          title: details.itineraryTitle1,
-          subtitle: details.itinerarySub1,
-          location: details.itineraryLocation1,
-          details: details.itineraryDetails1,
-        },
-        {
-          title: details.itineraryTitle2,
-          subtitle: details.itinerarySub2,
-          location: details.itineraryLocation2,
-          details: details.itineraryDetails2,
-        },
-        {
-          title: details.itineraryTitle3,
-          subtitle: details.itinerarySub3,
-          location: details.itineraryLocation3,
-          details: details.itineraryDetails3,
-        },
-        {
-          title: details.itineraryTitle4,
-          subtitle: details.itinerarySub4,
-          location: details.itineraryLocation4,
-          details: details.itineraryDetails4,
-        },
-        {
-          title: details.itineraryTitle5,
-          subtitle: details.itinerarySub5,
-          location: details.itineraryLocation5,
-          details: details.itineraryDetails5,
-        },
-      ],
+      // itinerary: [
+      //   {
+      //     title: details.itineraryTitle1,
+      //     subtitle: details.itinerarySub1,
+      //     location: details.itineraryLocation1,
+      //     details: details.itineraryDetails1,
+      //   },
+      //   {
+      //     title: details.itineraryTitle2,
+      //     subtitle: details.itinerarySub2,
+      //     location: details.itineraryLocation2,
+      //     details: details.itineraryDetails2,
+      //   },
+      //   {
+      //     title: details.itineraryTitle3,
+      //     subtitle: details.itinerarySub3,
+      //     location: details.itineraryLocation3,
+      //     details: details.itineraryDetails3,
+      //   },
+      //   {
+      //     title: details.itineraryTitle4,
+      //     subtitle: details.itinerarySub4,
+      //     location: details.itineraryLocation4,
+      //     details: details.itineraryDetails4,
+      //   },
+      //   {
+      //     title: details.itineraryTitle5,
+      //     subtitle: details.itinerarySub5,
+      //     location: details.itineraryLocation5,
+      //     details: details.itineraryDetails5,
+      //   },
+      //   {
+      //     title: details.itineraryTitle6,
+      //     subtitle: details.itinerarySub6,
+      //     location: details.itineraryLocation6,
+      //     details: details.itineraryDetails6,
+      //   },
+      // ],
       videoLinks: [
         details.vidLink1,
         details.vidLink2,
@@ -240,9 +286,9 @@ const NewTour = ({ close, id, resetId }) => {
       );
       const docRef = doc(db, "tours", id);
       if (imgLink.length > 0) {
-        await updateDoc(docRef, { ...formData, imgLink });
+        await updateDoc(docRef, { ...formData, itineraryFields, imgLink });
       } else {
-        await updateDoc(docRef, { ...formData });
+        await updateDoc(docRef, { ...formData, itineraryFields });
       }
     } else {
       let imgLink = [];
@@ -259,7 +305,11 @@ const NewTour = ({ close, id, resetId }) => {
           return downloadUrl;
         })
       );
-      await setDoc(doc(db, "tours", randomId), { ...formData, imgLink });
+      await setDoc(doc(db, "tours", randomId), {
+        ...formData,
+        itineraryFields,
+        imgLink,
+      });
     }
     setLoading(false);
     close();
@@ -292,26 +342,30 @@ const NewTour = ({ close, id, resetId }) => {
             checkIn: data.overview.checkIn,
             checkOut: data.overview.checkOut,
             overviewDesc: data.overview.desc,
-            itineraryTitle1: data.itinerary[0].title,
-            itinerarySub1: data.itinerary[0].subtitle,
-            itineraryLocation1: data.itinerary[0].location,
-            itineraryDetails1: data.itinerary[0].details,
-            itineraryTitle2: data.itinerary[1].title,
-            itinerarySub2: data.itinerary[1].subtitle,
-            itineraryLocation2: data.itinerary[1].location,
-            itineraryDetails2: data.itinerary[1].details,
-            itineraryTitle3: data.itinerary[2].title,
-            itinerarySub3: data.itinerary[2].subtitle,
-            itineraryLocation3: data.itinerary[2].location,
-            itineraryDetails3: data.itinerary[2].details,
-            itineraryTitle4: data.itinerary[3].title,
-            itinerarySub4: data.itinerary[3].subtitle,
-            itineraryLocation4: data.itinerary[3].location,
-            itineraryDetails4: data.itinerary[3].details,
-            itineraryTitle5: data.itinerary[4].title,
-            itinerarySub5: data.itinerary[4].subtitle,
-            itineraryLocation5: data.itinerary[4].location,
-            itineraryDetails5: data.itinerary[4].details,
+            // itineraryTitle1: data.itinerary[0].title,
+            // itinerarySub1: data.itinerary[0].subtitle,
+            // itineraryLocation1: data.itinerary[0].location,
+            // itineraryDetails1: data.itinerary[0].details,
+            // itineraryTitle2: data.itinerary[1].title,
+            // itinerarySub2: data.itinerary[1].subtitle,
+            // itineraryLocation2: data.itinerary[1].location,
+            // itineraryDetails2: data.itinerary[1].details,
+            // itineraryTitle3: data.itinerary[2].title,
+            // itinerarySub3: data.itinerary[2].subtitle,
+            // itineraryLocation3: data.itinerary[2].location,
+            // itineraryDetails3: data.itinerary[2].details,
+            // itineraryTitle4: data.itinerary[3].title,
+            // itinerarySub4: data.itinerary[3].subtitle,
+            // itineraryLocation4: data.itinerary[3].location,
+            // itineraryDetails4: data.itinerary[3].details,
+            // itineraryTitle5: data.itinerary[4].title,
+            // itinerarySub5: data.itinerary[4].subtitle,
+            // itineraryLocation5: data.itinerary[4].location,
+            // itineraryDetails5: data.itinerary[4].details,
+            // itineraryTitle6: data.itinerary[5].title,
+            // itinerarySub6: data.itinerary[5].subtitle,
+            // itineraryLocation6: data.itinerary[5].location,
+            // itineraryDetails6: data.itinerary[5].details,
             discountPrice: data.price.discountPrice,
             actualPrice: data.price.actualPrice,
             offPercentage: data.price.offPercentage,
@@ -620,7 +674,7 @@ const NewTour = ({ close, id, resetId }) => {
                 required
               ></textarea>
             </div>
-            <div className="add-itinerary-container">
+            {/* <div className="add-itinerary-container">
               <div className="add-group">
                 <p style={{ fontWeight: "600" }}>Itinerary 1:</p>
                 <input
@@ -957,8 +1011,182 @@ const NewTour = ({ close, id, resetId }) => {
                     required
                   ></input>
                 </div>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "350px",
+                    justifyContent: "center",
+                    marginTop: "8px",
+                  }}
+                >
+                  {step === 5 ? (
+                    <AiOutlinePlusCircle
+                      style={{ fontSize: "20px", cursor: "pointer" }}
+                      onClick={() => {
+                        setStep(6);
+                        setDisplay6(1);
+                      }}
+                      id="add-reveal"
+                    />
+                  ) : null}
+                </div>
               </div>
             ) : null}
+            {display6 ? (
+              <div className="add-itinerary-container">
+                <div className="add-group">
+                  <p style={{ fontWeight: "600" }}>Itinerary 6:</p>
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="itineraryTitle6"
+                    name="itineraryTitle6"
+                    onChange={handleChange}
+                    placeholder="Title"
+                    defaultValue={tour ? tour.itinerary[4].title : null}
+                    required
+                  ></input>
+                </div>
+                <div className="add-group">
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="itinerarySub6"
+                    name="itinerarySub6"
+                    onChange={handleChange}
+                    placeholder="Sub-title"
+                    defaultValue={tour ? tour.itinerary[4].subtitle : null}
+                    required
+                  ></input>
+                </div>
+                <div className="add-group">
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="itineraryLocation6"
+                    name="itineraryLocation6"
+                    onChange={handleChange}
+                    placeholder="Location"
+                    defaultValue={tour ? tour.itinerary[4].location : null}
+                    required
+                  ></input>
+                </div>
+                <div className="add-group">
+                  <input
+                    type="text"
+                    class="form__input add-input"
+                    id="itineraryDetails6"
+                    name="itineraryDetails6"
+                    onChange={handleChange}
+                    placeholder="Details"
+                    defaultValue={tour ? tour.itinerary[4].details : null}
+                    required
+                  ></input>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "350px",
+                    justifyContent: "center",
+                    marginTop: "8px",
+                  }}
+                >
+                  {step === 6 ? (
+                    <AiOutlinePlusCircle
+                      style={{ fontSize: "20px", cursor: "pointer" }}
+                      onClick={() => {
+                        setStep(7);
+                        // setDisplay6(1);
+                      }}
+                      id="add-reveal"
+                    />
+                  ) : null}
+                </div>
+              </div>
+            ) : null} */}
+            {itineraryFields.map((itineraryField, index) => (
+              <div key={index}>
+                <div className="add-itinerary-container">
+                  <div className="add-group">
+                    <p style={{ fontWeight: "600" }}>Itinerary {index + 1}:</p>
+                    {/* itineraryTitle: "",
+                    itinerarySubtitle: "",
+                    itineraryLocation: "",
+                    itineraryDetails: "", */}
+                    <input
+                      type="text"
+                      class="form__input add-input"
+                      id="itineraryTitle"
+                      name="itineraryTitle"
+                      onChange={(event) => {
+                        handleChangeItinerary(index, event);
+                      }}
+                      placeholder="Title"
+                      defaultValue={tour ? tour.itinerary[4].title : null}
+                      required
+                    ></input>
+                  </div>
+                  <div className="add-group">
+                    <input
+                      type="text"
+                      class="form__input add-input"
+                      id="itinerarySub"
+                      name="itinerarySubtitle"
+                      onChange={(event) => {
+                        handleChangeItinerary(index, event);
+                      }}
+                      placeholder="Sub-title"
+                      defaultValue={tour ? tour.itinerary[4].subtitle : null}
+                      required
+                    ></input>
+                  </div>
+                  <div className="add-group">
+                    <input
+                      type="text"
+                      class="form__input add-input"
+                      id="itineraryLocation"
+                      name="itineraryLocation"
+                      onChange={(event) => {
+                        handleChangeItinerary(index, event);
+                      }}
+                      placeholder="Location"
+                      defaultValue={tour ? tour.itinerary[4].location : null}
+                      required
+                    ></input>
+                  </div>
+                  <div className="add-group">
+                    <input
+                      type="text"
+                      class="form__input add-input"
+                      id="itineraryDetails"
+                      name="itineraryDetails"
+                      onChange={(event) => {
+                        handleChangeItinerary(index, event);
+                      }}
+                      placeholder="Details"
+                      defaultValue={tour ? tour.itinerary[4].details : null}
+                      required
+                    ></input>
+                  </div>
+                  <div style={{ display: "flex", marginTop: "5px" }}>
+                    <AiOutlinePlusCircle
+                      style={{ fontSize: "20px", cursor: "pointer" }}
+                      onClick={handleAddEvent}
+                      id="add-reveal"
+                    />
+                    {index > 0 ? (
+                      <AiOutlineMinusCircle
+                        style={{ fontSize: "20px", cursor: "pointer" }}
+                        onClick={() => {
+                          handleRemoveEvent(index);
+                        }}
+                        id="add-reveal"
+                      />
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            ))}
             <div className="add-group sub-category">
               <div>
                 <p style={{ fontWeight: "600" }}>Discount Price:</p>
