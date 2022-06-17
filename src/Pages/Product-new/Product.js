@@ -237,7 +237,7 @@ const Product = () => {
               </div>
               <Testimonies link={tour.testimonies} />
               <Enquire title={tour.enquiryTitle} />
-              <div className="escape-card">
+              {/* <div className="escape-card">
                 <div className="escape-card-title">
                   <p>Why Escape With Us?</p>
                 </div>
@@ -261,7 +261,7 @@ const Product = () => {
                     of pearl-white sand. Explore the beauty
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
