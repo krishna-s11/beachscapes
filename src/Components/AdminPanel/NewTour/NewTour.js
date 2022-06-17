@@ -342,30 +342,6 @@ const NewTour = ({ close, id, resetId }) => {
             checkIn: data.overview.checkIn,
             checkOut: data.overview.checkOut,
             overviewDesc: data.overview.desc,
-            // itineraryTitle1: data.itinerary[0].title,
-            // itinerarySub1: data.itinerary[0].subtitle,
-            // itineraryLocation1: data.itinerary[0].location,
-            // itineraryDetails1: data.itinerary[0].details,
-            // itineraryTitle2: data.itinerary[1].title,
-            // itinerarySub2: data.itinerary[1].subtitle,
-            // itineraryLocation2: data.itinerary[1].location,
-            // itineraryDetails2: data.itinerary[1].details,
-            // itineraryTitle3: data.itinerary[2].title,
-            // itinerarySub3: data.itinerary[2].subtitle,
-            // itineraryLocation3: data.itinerary[2].location,
-            // itineraryDetails3: data.itinerary[2].details,
-            // itineraryTitle4: data.itinerary[3].title,
-            // itinerarySub4: data.itinerary[3].subtitle,
-            // itineraryLocation4: data.itinerary[3].location,
-            // itineraryDetails4: data.itinerary[3].details,
-            // itineraryTitle5: data.itinerary[4].title,
-            // itinerarySub5: data.itinerary[4].subtitle,
-            // itineraryLocation5: data.itinerary[4].location,
-            // itineraryDetails5: data.itinerary[4].details,
-            // itineraryTitle6: data.itinerary[5].title,
-            // itinerarySub6: data.itinerary[5].subtitle,
-            // itineraryLocation6: data.itinerary[5].location,
-            // itineraryDetails6: data.itinerary[5].details,
             discountPrice: data.price.discountPrice,
             actualPrice: data.price.actualPrice,
             offPercentage: data.price.offPercentage,
@@ -397,6 +373,8 @@ const NewTour = ({ close, id, resetId }) => {
             service10: data.services[9].service,
             charge10: data.services[9].charge,
           });
+          console.log(itineraryFields);
+          setItineraryFields(data.itineraryFields);
         } else {
           console.log("No such document!");
         }
@@ -419,7 +397,8 @@ const NewTour = ({ close, id, resetId }) => {
     getDestinations2();
   }, []);
 
-  console.log(details);
+  // console.log(details);
+  console.log(itineraryFields);
 
   return (
     <div className="new-tour">
@@ -1122,7 +1101,11 @@ const NewTour = ({ close, id, resetId }) => {
                         handleChangeItinerary(index, event);
                       }}
                       placeholder="Title"
-                      defaultValue={tour ? tour.itinerary[4].title : null}
+                      defaultValue={
+                        tour
+                          ? tour.itineraryFields[index]?.itineraryTitle
+                          : null
+                      }
                       required
                     ></input>
                   </div>
@@ -1136,7 +1119,11 @@ const NewTour = ({ close, id, resetId }) => {
                         handleChangeItinerary(index, event);
                       }}
                       placeholder="Sub-title"
-                      defaultValue={tour ? tour.itinerary[4].subtitle : null}
+                      defaultValue={
+                        tour
+                          ? tour.itineraryFields[index]?.itinerarySubtitle
+                          : null
+                      }
                       required
                     ></input>
                   </div>
@@ -1150,7 +1137,11 @@ const NewTour = ({ close, id, resetId }) => {
                         handleChangeItinerary(index, event);
                       }}
                       placeholder="Location"
-                      defaultValue={tour ? tour.itinerary[4].location : null}
+                      defaultValue={
+                        tour
+                          ? tour.itineraryFields[index]?.itineraryLocation
+                          : null
+                      }
                       required
                     ></input>
                   </div>
@@ -1164,7 +1155,11 @@ const NewTour = ({ close, id, resetId }) => {
                         handleChangeItinerary(index, event);
                       }}
                       placeholder="Details"
-                      defaultValue={tour ? tour.itinerary[4].details : null}
+                      defaultValue={
+                        tour
+                          ? tour.itineraryFields[index]?.itineraryDetails
+                          : null
+                      }
                       required
                     ></input>
                   </div>
