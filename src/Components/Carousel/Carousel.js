@@ -203,11 +203,11 @@ const Carousel = () => {
                 />
               );
             })}
-          <CarouselCard img={goa} text="goa" />
+          {/* <CarouselCard img={goa} text="goa" />
           <CarouselCard img={maldives} text="maldives" />
           <CarouselCard img={vergin} text="vergin islands" />
           <CarouselCard img={bora} text="bora bora" />
-          <CarouselCard img={maldives} text="bora bora" />
+          <CarouselCard img={maldives} text="bora bora" /> */}
         </Slider>
       </div>
     </div>
