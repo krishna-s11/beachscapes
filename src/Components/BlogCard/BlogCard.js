@@ -18,12 +18,30 @@ const BlogCard = ({ data }) => {
             ? data.data.imgLink[1]
             : "https://picsum.photos/380/190"
         }
-        alt={data.data.para1}
+        alt={data.data.heading}
       ></img>
       <div className="hr"></div>
       <div className="blog-card-content">
         <h1>{data.data.heading}</h1>
-        <p>{data.data.para1}</p>
+        <div
+          style={{
+            height: "200px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            textAlign: "justify",
+          }}
+        >
+          <p>{data.data.para1}</p>
+        </div>
+      </div>
+      <div
+        style={{
+          paddingRight: "15px",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <p>Read more..</p>
       </div>
     </div>
   );

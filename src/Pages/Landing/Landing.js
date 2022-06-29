@@ -10,6 +10,7 @@ import { getDoc, doc } from "firebase/firestore";
 const Landing = () => {
   const settings2 = {
     dots: true,
+    lazyLoad: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -27,7 +28,7 @@ const Landing = () => {
       setBanner(docSnap.data());
     };
     getBanner2();
-  }, {});
+  }, []);
 
   return (
     <div className="landing-pg">

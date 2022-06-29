@@ -52,6 +52,7 @@ const Carousel = () => {
 
   const settings = {
     dots: false,
+    lazyLoad: true,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -104,6 +105,7 @@ const Carousel = () => {
 
   const settings2 = {
     dots: true,
+    lazyLoad: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,

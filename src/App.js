@@ -9,7 +9,6 @@ import Product from "./Pages/Product-new/Product";
 import Blogs from "./Pages/Blogs/Blogs";
 import Blog from "./Pages/Blog/Blog";
 import Dashboard from "./Pages/AdminPanel/Dashboard/Dashboard";
-import { BrowserRouter as Router } from "react-router-dom";
 import Destinations from "./Components/AdminPanel/Destinations/Destinations";
 import Destinations2 from "./Components/AdminPanel/Destinations2/Destinations2";
 import Lead from "./Components/AdminPanel/Leads/Lead";
