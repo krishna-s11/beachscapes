@@ -1,5 +1,6 @@
 {
   "name": "beachscapes",
+  "homepage": "https://beachscapes.in/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
