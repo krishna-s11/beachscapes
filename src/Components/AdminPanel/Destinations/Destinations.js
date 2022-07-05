@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./destinations.css";
 import { db, storage } from "../../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import {
   collection,
   getDocs,
   doc,
   deleteDoc,
   addDoc,
+  setDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import Loader from "../../Loader/Loader";
@@ -43,13 +49,23 @@ const Destinations = () => {
     const downloadUrl = await getDownloadURL(
       ref(storage, `destinations/${randomId}`)
     );
-
-    await addDoc(collection(db, "destinations"), { ...details, downloadUrl });
+    await setDoc(doc(db, "destinations", randomId), {
+      ...details,
+      downloadUrl,
+    });
     setLoading(false);
     window.location.reload();
   };
 
   const handleDelete = async (id) => {
+    const desertRef = ref(storage, `destinations/${id}`);
+    await deleteObject(desertRef)
+      .then(() => {
+        console.log("Deleted !");
+      })
+      .catch((error) => {
+        console.log("Encountered error");
+      });
     await deleteDoc(doc(db, "destinations", id));
     window.location.reload();
   };

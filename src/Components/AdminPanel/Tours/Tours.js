@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./tours.css";
-import { db } from "../../../firebase";
+import { db, storage } from "../../../firebase";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { ref, deleteObject, listAll } from "firebase/storage";
 import NewTour from "../NewTour/NewTour";
+import DeleteCard from "../../Cards/DeleteCard/DeleteCard";
 
 const Tours = () => {
   const [tours, setTours] = useState();
   const [add, setAdd] = useState(false);
   const [id, setId] = useState(null);
+  const [del, setDel] = useState(0);
+  const [delId, setDelId] = useState(null);
 
   useEffect(() => {
     const getTours = async () => {
@@ -23,6 +27,18 @@ const Tours = () => {
   }, []);
 
   const handleDelete = async (id) => {
+    for (var i = 0; i < 20; i++) {
+      const desertRef = ref(storage, `tours/${id}/${i}`);
+      if (desertRef) {
+        deleteObject(desertRef)
+          .then(() => {
+            console.log("Deleted !");
+          })
+          .catch((error) => {
+            console.log("Encountered error => ", error);
+          });
+      }
+    }
     await deleteDoc(doc(db, "tours", id));
     window.location.reload();
   };
@@ -38,6 +54,16 @@ const Tours = () => {
             }}
             resetId={() => {
               setId(null);
+            }}
+          />
+        ) : null}
+        {del ? (
+          <DeleteCard
+            del={() => {
+              handleDelete(delId);
+            }}
+            close={() => {
+              setDel(0);
             }}
           />
         ) : null}
@@ -87,7 +113,8 @@ const Tours = () => {
                   <td
                     className="btn-del"
                     onClick={() => {
-                      handleDelete(tour.id);
+                      setDelId(tour.id);
+                      setDel(1);
                     }}
                   >
                     Delete
